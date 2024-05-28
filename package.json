@@ -1,0 +1,24 @@
+{
+  "name": "touchportal-meldstudio-plugin",
+  "version": "1.0.0",
+  "description": "Touch Portal integration with Meld Studio",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "TouchPortal",
+    "MeldStudio",
+    "Meld",
+    "Plugin"
+  ],
+  "author": "Jameson Allen (aka Spdermn02)",
+  "license": "LGPL-3.0-or-later",
+  "dependencies": {
+    "qwebchannel": "^6.2.0",
+    "touchportal-api": "^3.3.0",
+    "ws": "^8.17.0"
+  }
+}
