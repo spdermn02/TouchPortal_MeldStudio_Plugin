@@ -1,0 +1,334 @@
+{
+  "sdk": 7,
+  "version": 1000,
+  "TouchPortal_MeldStudio_Version": "1.0.0",
+  "name": "Touch Portal Meld Studio Plugin",
+  "id": "TouchPortal.MeldStudio.Plugin",
+  "plugin_start_cmd_windows": "\"%TP_PLUGIN_FOLDER%touchportal-meldstudio-plugin\\touchportal-meldstudio-plugin.exe\"",
+  "plugin_start_cmd_mac": "sh %TP_PLUGIN_FOLDER%touchportal-meldstudio-plugin/start.sh touchportal-meldstudio-plugin",
+  "configuration": {
+    "parentCategory": "streaming",
+    "colorDark": "#05133b",
+    "colorLight": "#016076"
+  },
+  "categories": [
+    {
+      "id": "TouchPortalMeldStudioMain",
+      "name": "Meld Studio",
+      "imagepath": "%TP_PLUGIN_FOLDER%touchportal-meldstudio-plugin/icons/category-main.png",
+      "actions": [
+        {
+          "id": "tp_meld_studio_screenshot",
+          "name": "Take Screenshot",
+          "type": "communicate",
+          "lines": {
+            "action": [
+              {
+                "language": "default",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Take Screenshot"
+                  }
+                ]
+              },
+              {
+                "language": "es",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Tomar captura de pantalla"
+                  }
+                ]
+              },
+              {
+                "language": "nl",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Screenshot maken"
+                  }
+                ]
+              },
+              {
+                "language": "fr",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Prendre une capture d'écran"
+                  }
+                ]
+              },
+              {
+                "language": "pt",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Faça uma captura de tela"
+                  }
+                ]
+              },
+              {
+                "language": "tr",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Ekran görüntüsü al"
+                  }
+                ]
+              },
+              {
+                "language": "de",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Einen Screenshot machen"
+                  }
+                ]
+              },
+              {
+                "language": "it",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Fai uno screenshot"
+                  }
+                ]
+              },
+              {
+                "language": "fi",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Ota kuvakaappaus"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "tp_meld_studio_show-scene",
+          "name": "Show Scene",
+          "type": "communicate",
+          "lines": {
+            "action": [
+              {
+                "language": "default",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Show Scene {$tp_meld_studio_scene-list$}"
+                  }
+                ]
+              },
+              {
+                "language": "es",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Mostrar escena {$tp_meld_studio_scene-list$}"
+                  }
+                ]
+              },
+              {
+                "language": "nl",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Scène tonen {$tp_meld_studio_scene-list$}"
+                  }
+                ]
+              },
+              {
+                "language": "fr",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Afficher la scène {$tp_meld_studio_scene-list$}"
+                  }
+                ]
+              },
+              {
+                "language": "pt",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Mostrar cena {$tp_meld_studio_scene-list$}"
+                  }
+                ]
+              },
+              {
+                "language": "tr",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Sahneyi Göster {$tp_meld_studio_scene-list$}"
+                  }
+                ]
+              },
+              {
+                "language": "de",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Szene anzeigen {$tp_meld_studio_scene-list$}"
+                  }
+                ]
+              },
+              {
+                "language": "it",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Mostra scena {$tp_meld_studio_scene-list$}"
+                  }
+                ]
+              },
+              {
+                "language": "fi",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Näytä kohtaus {$tp_meld_studio_scene-list$}"
+                  }
+                ]
+              }
+            ]
+          },
+          "data": [
+            {
+              "id": "tp_meld_studio_scene-list",
+              "type": "choice",
+              "default": "",
+              "valueChoices": []
+            }
+          ]
+        },
+        {
+          "id": "tp_meld_studio_toggle-stream",
+          "name": "Toggle Streaming",
+          "type": "communicate",
+          "lines": {
+            "action": [
+              {
+                "language": "default",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Toggle Streaming"
+                  }
+                ]
+              },
+              {
+                "language": "es",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Alternar transmisión"
+                  }
+                ]
+              },
+              {
+                "language": "nl",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Schakel Streaming in"
+                  }
+                ]
+              },
+              {
+                "language": "fr",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Basculer le streaming"
+                  }
+                ]
+              },
+              {
+                "language": "pt",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Alternar streaming"
+                  }
+                ]
+              },
+              {
+                "language": "tr",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Akışı Değiştir"
+                  }
+                ]
+              },
+              {
+                "language": "de",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Streaming aktivieren/deaktivieren"
+                  }
+                ]
+              },
+              {
+                "language": "it",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Attiva/disattiva streaming"
+                  }
+                ]
+              },
+              {
+                "language": "fi",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Ota suoratoisto käyttöön"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "tp_meld_studio_toggle-record",
+          "name": "Toggle Recording",
+          "type": "communicate",
+          "lines": {
+            "action": [
+              {
+                "language": "default",
+                "data": [
+                  {
+                    "lineFormat": "Meld Studio: Toggle Recording"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "states": [
+        {
+          "id": "tp_meld_studio_current-scene",
+          "desc": "Current Scene Name",
+          "type": "text",
+          "default": "",
+          "parentGroup": "Scene"
+        },
+        {
+          "id": "tp_meld_studio_current-scene-id",
+          "desc": "Current Scene Id",
+          "type": "text",
+          "default": "",
+          "parentGroup": "Scene"
+        },
+        {
+          "id": "tp_meld_studio_current-scene-name-id",
+          "desc": "Current Scene Name & Id",
+          "type": "text",
+          "default": "",
+          "parentGroup": "Scene"
+        },
+        {
+          "id": "tp_meld_studio_streaming",
+          "desc": "Streaming",
+          "type": "choice",
+          "default": "No",
+          "valueChoices": [
+            "No",
+            "Yes"
+          ]
+        },
+        {
+          "id": "tp_meld_studio_recording",
+          "desc": "Recording",
+          "type": "choice",
+          "default": "No",
+          "valueChoices": [
+            "No",
+            "Yes"
+          ]
+        }
+      ]
+    }
+  ]
+}

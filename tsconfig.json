@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
       "typeRoots": [
-        "./src/typings/*",
+        "./src/meldStudio/*",
         "./node_modules/@types"
       ], /* List of folders to include type definitions from. */
       "allowSyntheticDefaultImports": true, /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */

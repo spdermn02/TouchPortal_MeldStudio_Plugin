@@ -1,7 +1,8 @@
 
-import QWebChannel from 'qwebchannel';
+import QWC from 'qwebchannel';
 import WebSocket from 'ws';
 import EventEmitter from 'events';
+import * as T from './meldStudio/types';
 
 const CONNECT_INTERVAL: number = 10000;
 
@@ -11,7 +12,7 @@ const CONNECT_INTERVAL: number = 10000;
 export default class MeldStudio extends EventEmitter {
 	connected: boolean = false;
 	ready: boolean = false;
-	meld: any = {};
+	meld: T.MeldStudio = { isRecording: false, isStreaming: false };
 	socket: any = {};
 	channel: any = {};
 	running: boolean = false;
@@ -43,25 +44,25 @@ export default class MeldStudio extends EventEmitter {
 			this.connected = true;
 			this.emit('connected');
 
-			this.channel = QWebChannel.QWebChannel(this.socket, (channel: any) => {
+			this.channel = new QWC.QWebChannel(this.socket, (channel:any) => {
 				this.meld = channel.objects.meld;
 
-				this.meld.sessionChanged.connect(() => {
-					console.log('Session Changed');
+				this.meld.sessionChanged?.connect(() => {
+					//console.log('Session Changed');
 					this.emit('sessionChanged', this.meld.session);
 				});
 
-				this.meld.isStreamingChanged.connect(() => {
-					console.log('Streaming Changed');
+				this.meld.isStreamingChanged?.connect(() => {
+					//console.log('Streaming Changed');
 					this.emit('isStreamingChanged', this.meld.isStreaming);
 				});
 
-				this.meld.isRecordingChanged.connect(() => {
-					console.log('Recording Changed');
+				this.meld.isRecordingChanged?.connect(() => {
+					//console.log('Recording Changed');
 					this.emit('isRecordingChanged', this.meld.isRecording);
 				});
 
-				this.meld.gainUpdated.connect((trackId:string, gain:number, muted:boolean) => {
+				this.meld.gainUpdated?.connect((trackId:string, gain:number, muted:boolean) => {
 					this.emit('gainUpdated', { trackId, gain, muted });
 					this.emit('gainChanged', { trackId, gain, muted });
 				});
@@ -77,7 +78,7 @@ export default class MeldStudio extends EventEmitter {
 		this.socket.onclose = () => {
 			this.ready = false;
 			this.connected = false;
-			this.meld = {};
+			this.meld = {isRecording: false, isStreaming: false };
 
 			this.emit('closed');
 

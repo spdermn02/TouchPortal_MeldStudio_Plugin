@@ -1,11 +1,29 @@
 {
   "name": "touchportal-meldstudio-plugin",
   "version": "1.0.0",
+  "config": {
+    "build": 1,
+    "nodeTarget": "node18"
+  },
+  "bin": {
+    "touchportal-meldstudio-plugin": "dist/index.js"
+  },
+  "pkg": {
+    "assets": [
+      "dist/actions/**",
+      "dist/meldStudio/**"
+    ]
+  },
   "description": "Touch Portal integration with Meld Studio",
   "main": "src/index.js",
   "scripts": {
-    "start": "tsc && node dist/index.js",
-    "build": "tsc",
+    "start": "ts-node ./src/index.ts",
+    "start-dist": "tsc && node dist/index.js",
+    "build": "tsc && node builders/build.js",
+    "build-win": "tsc && node builders/build.js -p Windows",
+    "build-mac": "tsc && node builders/build.js -p MacOS",
+    "tsc": "tsc",
+    "ts-node-dev": "ts-node-dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -17,8 +35,21 @@
   "author": "Jameson Allen (aka Spdermn02)",
   "license": "LGPL-3.0-or-later",
   "dependencies": {
+    "@types/node": "^20.12.12",
+    "@types/ws": "^8.5.10",
     "qwebchannel": "^6.2.0",
     "touchportal-api": "^3.3.0",
     "ws": "^8.17.0"
+  },
+  "devDependencies": {
+    "adm-zip": "^0.5.12",
+    "bing-translate-api": "^4.0.2",
+    "common-es": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "pkg": "github:vercel/pkg",
+    "translate": "^3.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }

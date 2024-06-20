@@ -1,6 +1,7 @@
 import * as C from '../consts';
+import TpAction from '../tpAction';
 
-class VolumeStepper {
+export default class VolumeStepper extends TpAction {
     tpActionId: string = C.Str.IdPrefix + 'volume-stepper';
     tpConnectorId: string = this.tpActionId + '-connector';
     trackInfo: any = {};
@@ -12,6 +13,7 @@ class VolumeStepper {
     tp: any = null;
     connectors: Array<any> = [];
     constructor( $MS: any, TPClient: any) {
+        super();
         this.meld = $MS;
         this.tp = TPClient;
         this.initialize();
@@ -32,6 +34,7 @@ class VolumeStepper {
         });
     }
     handleAction(message: any, isHeld: boolean = false) {
+        console.log(message);
         if( isHeld ) {
             this.meld.volumeUp();
         } else {
@@ -48,6 +51,7 @@ class VolumeStepper {
         newVol = newVol < 0 ? 0 : newVol;
     }
     handleGainChange(trackId: string, gain: number, muted: boolean) {
+        console.log(trackId, gain, muted);
         // this.tp.updateState(this.tpStates[0].id, gain);
         
         // let info = this.trackInfo[trackId];
