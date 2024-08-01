@@ -131,3 +131,6 @@ dist
 
 # Touch Portal Plugin Dirs
 Installers/
+
+# Built Files now
+base/entry.tp
