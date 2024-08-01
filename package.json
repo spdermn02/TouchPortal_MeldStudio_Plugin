@@ -11,18 +11,28 @@
   "pkg": {
     "assets": [
       "dist/actions/**",
-      "dist/meldStudio/**"
+      "dist/meldStudio/**",
+      "dist/touchPortal/**"
     ]
   },
   "description": "Touch Portal integration with Meld Studio",
   "main": "src/index.js",
   "scripts": {
-    "start": "ts-node ./src/index.ts",
-    "start-dist": "tsc && node dist/index.js",
-    "build": "tsc && node builders/build.js",
-    "build-win": "tsc && node builders/build.js -p Windows",
-    "build-mac": "tsc && node builders/build.js -p MacOS",
     "tsc": "tsc",
+    "clean": "tsc -b --clean",
+
+    "start": "ts-node ./src/index.ts",
+    "start-dist": "npm run clean && tsc && node dist/index.js",
+
+    "build": "npm run clean && tsc && node builders/build.js",
+    "build-win": "npm run clean && tsc && node builders/build.js -p Windows",
+    "build-mac": "npm run clean && tsc && node builders/build.js -p MacOS",
+    
+    "full-build": "npm run clean && tsc && node builders/entry.mjs && node builders/build.js",
+
+    "debug-entry": "tsc && node builders/entry.mjs --debug",
+    "build-entry": "tsc && node builders/entry.mjs",
+
     "ts-node-dev": "ts-node-dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

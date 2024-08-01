@@ -1,15 +1,17 @@
 import * as C from '../consts';
-//import * as T from '../meldStudio/types';
-import TpAction from '../tpAction';
+import TpAction from '../touchPortal/tpAction';
 
 export default class ToggleStream extends TpAction {
-    tpActionId: string = C.Str.IdPrefix + 'toggle-stream';
-    tpFormat: string = 'Toggle Streaming'
+    tpAction: any = {
+        id: C.Str.IdPrefix + 'toggle-stream',
+        name: "Toggle Stream",
+        lineFormat: "Toggle Streaming"
+    }
     $MS: any = null;
     tp: any = null;
     tpStates: any = {
         'streaming': {
-            id: 'streaming',
+            id: C.Str.IdPrefix + 'streaming',
             desc: 'Streaming',
             type: 'choice',
             default: 'No',
@@ -28,7 +30,7 @@ export default class ToggleStream extends TpAction {
     }
     initialize() {
         this.tp.on('Action', (message: any) => {
-            if (message.actionId == this.tpActionId) {
+            if (this.compareActionId(message.actionId) ) {
                 this.handleAction();
             }
         });
@@ -44,6 +46,6 @@ export default class ToggleStream extends TpAction {
     }
     updateState(streaming:boolean=false) {
         const value = streaming ? 1 : 0;
-        this.tp.stateUpdate( C.Str.IdPrefix + this.tpStates.streaming.id, this.tpStates.streaming.valueChoices[value]);
+        this.tp.stateUpdate( this.tpStates.streaming.id, this.tpStates.streaming.valueChoices[value]);
     }
 }

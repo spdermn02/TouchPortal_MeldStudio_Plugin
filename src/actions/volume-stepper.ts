@@ -1,9 +1,13 @@
 import * as C from '../consts';
-import TpAction from '../tpAction';
+import TpAction from '../touchPortal/tpAction';
 
 export default class VolumeStepper extends TpAction {
-    tpActionId: string = C.Str.IdPrefix + 'volume-stepper';
-    tpConnectorId: string = this.tpActionId + '-connector';
+    tpAction: any = {
+        id: C.Str.IdPrefix + 'volume-stepper',
+        name: "Volume Stepper",
+        lineFormat: "Volume Stepper"
+    }
+    tpConnectorId: string = this.getTpActionId() + '-connector';
     trackInfo: any = {};
     tpStates: Array<any> = [
         {}
@@ -20,7 +24,7 @@ export default class VolumeStepper extends TpAction {
     }
     initialize() {
         this.tp.on('Action', (message: any, isHeld: boolean = false) => {
-            if( message.actionId == this.tpActionId ) {
+            if( this.compareActionId(message.actionId) ) {
                 this.handleAction(message,isHeld);
             }
         });

@@ -24,7 +24,6 @@ const dynamicImportModule = async (modulePath) => {
     const module = await import(modulePath);
     TPClient.logIt('DEBUG','Successfully loaded module:', modulePath);
     modules.push(module);
-
   } catch (error) {
     TPClient.logIt('ERROR','Failed to load module:', error);
   }
@@ -37,6 +36,7 @@ const files = fs.readdirSync(path.join(__dirname, "/actions/"));
 const jsFiles = files.filter(f => f.split(".").pop() === 'js');
 (async () => {
   for (const jsFile of jsFiles) {
+    TPClient.logIt("DEBUG", "Loading module:", jsFile);
     await dynamicImportModule(path.join(__dirname, "/actions/", jsFile));
   }
 })();

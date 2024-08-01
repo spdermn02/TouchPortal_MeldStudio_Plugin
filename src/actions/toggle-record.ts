@@ -1,10 +1,12 @@
 import * as C from '../consts';
-//import * as T from '../meldStudio/types';
-import TpAction from '../tpAction';
+import TpAction from '../touchPortal/tpAction';
 
 export default class ToggleRecord extends TpAction{
-    tpActionId: string =  C.Str.IdPrefix + 'toggle-record';
-    tpFormat: string = 'Toggle Recording'
+    tpAction: any = {
+        id: C.Str.IdPrefix + 'toggle-record',
+        name: "Toggle Record",
+        lineFormat: "Toggle Recording"
+    }
     $MS: any = null;
     tp: any = null;
     tpStates: any = {
@@ -28,7 +30,7 @@ export default class ToggleRecord extends TpAction{
     }
     initialize() {
         this.tp.on('Action', (message: any) => {
-            if (message.actionId == this.tpActionId) {
+            if ( message.actionId == this.getTpActionId()) {
                 this.handleAction();
             }
         });

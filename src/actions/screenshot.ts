@@ -1,15 +1,9 @@
 import * as C from '../consts';
-import TpAction from '../tpAction';
+import TpAction from '../touchPortal/tpAction';
 
 export default class Screenshot extends TpAction {
-    tpActionId: string = C.Str.IdPrefix + 'screenshot';
-    tpFormat: string = "Take Screenshot";
-    // tpHoldable: boolean = false;
-    // tpStates: Array<any> = [
-    //     {}
-    // ];
-    // tpConnectors: Array<any> = [];
     tpAction: any = {
+        id: C.Str.IdPrefix + 'screenshot',
         name: "Take Screenshot",
         lineFormat: "Take Screenshot"
     }
@@ -25,7 +19,7 @@ export default class Screenshot extends TpAction {
     initialize() {
         this.tp.on('Action', (message: any) => {
             this.tp.logIt('INFO', 'Action', message);
-            if( message.actionId == this.tpActionId ) {
+            if( message.actionId == this.getTpActionId() ) {
                 this.handleAction();
             }
         });

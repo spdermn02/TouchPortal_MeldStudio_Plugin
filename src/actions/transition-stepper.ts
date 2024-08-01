@@ -1,9 +1,13 @@
-//import * as C from '../consts';
-import * as T from '../meldStudio/types';
-import TpAction from '../tpAction';
+import * as C from '../consts';
+import TpAction from '../touchPortal/tpAction';
 
 export default class TransitionStepper extends TpAction {
-    $MS: T.MeldStudio = { isRecording: false, isStreaming: false };
+    tpAction: any = {
+        id: C.Str.IdPrefix + 'transition-stepper',
+        name: "Transition Stepper",
+        lineFormat: "Transition Stepper"
+    }
+    $MS: any = null;
     tp: any = null;
     constructor( $MS: any, TPClient: any) {
         super();

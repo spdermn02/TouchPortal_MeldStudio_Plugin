@@ -90,11 +90,14 @@ const cleanInstallers  = () => {
       }
 }
 
-const executeBuilds = function() {
+const executeBuilds = async function() {
   cleanInstallers()
-  targetPlatform.forEach(
-     p => build(p)
-  )
+  // for of loop for targetPlatform
+
+  for (const platform of targetPlatform) {
+    await build(platform);
+  }
+
 }
 
 executeBuilds();

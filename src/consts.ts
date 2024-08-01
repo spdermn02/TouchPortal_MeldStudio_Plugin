@@ -7,4 +7,6 @@ export const enum Str {
     Default = "default",  // used in action fields TP UI to indicate a default value
     DefaultChar = 'd',    // must match first char of `Default`, used in code for quick value comparisons
     UpdateUrl = '',       // URL to check for updates
+    TPParentCategory = 'streaming' // Where in TP will this Plugin Showup
 };
+

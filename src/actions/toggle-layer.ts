@@ -1,9 +1,13 @@
-//import * as C from '../consts';
-import * as T from '../meldStudio/types';
-import TpAction from '../tpAction';
+import * as C from '../consts';
+import TpAction from '../touchPortal/tpAction';
 
 export default class ToggleLayer extends TpAction {
-    $MS: T.MeldStudio = { isRecording: false, isStreaming: false };
+    tpAction: any = {
+        id: C.Str.IdPrefix + 'toggle_layer',
+        name: "Toggle Layer",
+        lineFormat: "Toggle Layer"
+    }
+    $MS: any = null;
     tp: any = null;
     constructor( $MS: any, TPClient: any) {
         super();

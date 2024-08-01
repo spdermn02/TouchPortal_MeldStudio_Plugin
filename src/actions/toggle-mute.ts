@@ -1,9 +1,13 @@
-//import * as C from '../consts';
-import * as T from '../meldStudio/types';
-import TpAction from '../tpAction';
+import * as C from '../consts';
+import TpAction from '../touchPortal/tpAction';
 
 export default class ToggleMute extends TpAction {
-    $MS: T.MeldStudio = { isRecording: false, isStreaming: false };
+    tpAction: any = {
+        id: C.Str.IdPrefix + 'toggle_mute',
+        name: "Toggle Mute",
+        lineFormat: "Toggle Mute"
+    }
+    $MS: any = null;
     tp: any = null;
     constructor( $MS: any, TPClient: any) {
         super();
