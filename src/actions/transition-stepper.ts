@@ -5,7 +5,8 @@ export default class TransitionStepper extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'transition-stepper',
         name: "Transition Stepper",
-        lineFormat: "Transition Stepper"
+        lineFormat: "Transition Stepper",
+        enabled: false
     }
     $MS: any = null;
     tp: any = null;

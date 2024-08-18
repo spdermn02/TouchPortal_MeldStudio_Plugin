@@ -5,7 +5,8 @@ export default class ToggleMute extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'toggle_mute',
         name: "Toggle Mute",
-        lineFormat: "Toggle Mute"
+        lineFormat: "Toggle Mute",
+        enabled: false
     }
     $MS: any = null;
     tp: any = null;

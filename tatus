@@ -1,0 +1,45 @@
+[33mcommit 368c1b154997958ce8190027c9fbf8376ccf50f9[m[33m ([m[1;36mHEAD -> [m[1;32mInitial_Buildout[m[33m, [m[1;31morigin/Initial_Buildout[m[33m)[m
+Author: Jameson Allen <jameson.f.allen@gmail.com>
+Date:   Thu Aug 1 00:08:16 2024 -0500
+
+    fix(gitconfig): [TP-1] Removing entry.tp from commitable
+
+[33mcommit 3255ab9a3904353928d0274e491cc8061b57f2c7[m
+Author: Jameson Allen <jameson.f.allen@gmail.com>
+Date:   Thu Aug 1 00:06:20 2024 -0500
+
+    feat(init): [TP-1] Initial buildout .. still in progress
+    
+    Still work in progress but want to push up my changes to repo so they aren't
+    only on my PC.  New entry.tp builder which will make changes to that faster
+    hopefully
+
+[33mcommit 43db7412516c8a71f21eb7cf5bc4e27fe8e19dde[m
+Author: Jameson Allen <jameson.f.allen@gmail.com>
+Date:   Thu Jun 20 10:28:30 2024 -0500
+
+    feat(init): [TP-1] Initial commit for Meld Studio Touch Portal Plugin
+    
+    Still lots to complete, but framework is coming together, Screenshot, Show-Scene, Toggle Record,
+    Toggle Stream should all be working, will continue to work on this as time permits"
+
+[33mcommit 1035a1c14922342fb49be61a18c039e34f1ae0b9[m
+Author: Jameson Allen <jameson.f.allen@gmail.com>
+Date:   Tue May 28 15:37:41 2024 -0500
+
+    feat(init): [TP-1] Init Structure and setup
+    
+    Working on the initial setup and coding for the plugin
+    utilizing Meld Studio's API Documentation and their StreamDeck api
+
+[33mcommit f4a24ab00d82fbbaade126541087dd8539bc9708[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Jameson Allen <jameson.f.allen@gmail.com>
+Date:   Tue May 28 15:36:42 2024 -0500
+
+    feat(init): [TP-1] Updating README
+
+[33mcommit 204f6fd77b5d4988ca71c989b6f0e57e1f70f2d8[m
+Author: Jameson Allen <jameson.f.allen@gmail.com>
+Date:   Tue May 28 15:35:02 2024 -0500
+
+    Initial commit

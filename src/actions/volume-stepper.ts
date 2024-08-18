@@ -5,13 +5,14 @@ export default class VolumeStepper extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'volume-stepper',
         name: "Volume Stepper",
-        lineFormat: "Volume Stepper"
+        lineFormat: "Volume Stepper",
+        enabled: false
     }
     tpConnectorId: string = this.getTpActionId() + '-connector';
     trackInfo: any = {};
-    tpStates: Array<any> = [
-        {}
-    ];
+    //tpStates: Array<any> = [
+    //    {}
+    //];
     meldId: string = "";
     meld: any = null;
     tp: any = null;

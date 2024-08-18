@@ -5,7 +5,8 @@ export default class ToggleLayer extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'toggle_layer',
         name: "Toggle Layer",
-        lineFormat: "Toggle Layer"
+        lineFormat: "Toggle Layer",
+        enabled: false
     }
     $MS: any = null;
     tp: any = null;

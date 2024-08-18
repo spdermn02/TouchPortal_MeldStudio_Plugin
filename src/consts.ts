@@ -6,7 +6,8 @@ export const enum Str {
     IdSep = "_",          // action/data ID separator character
     Default = "default",  // used in action fields TP UI to indicate a default value
     DefaultChar = 'd',    // must match first char of `Default`, used in code for quick value comparisons
-    UpdateUrl = '',       // URL to check for updates
+    GitHubUser = 'spdermn02', // GitHub user to check for updates
+    GitHubRepo = 'TouchPortal_MeldStudio_Plugin', // GitHub repo to check for updates
     TPParentCategory = 'streaming' // Where in TP will this Plugin Showup
 };
 

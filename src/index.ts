@@ -2,6 +2,7 @@
 import MeldStudio from './meldStudio';
 import ProcessWatcher from './processWatcher';
 import TP from 'touchportal-api';
+import TPSettings from './touchPortal/tpSettings';
 import * as C from './consts';
 import { platform } from 'process';
 import path from 'path';
@@ -14,6 +15,7 @@ const pw = new ProcessWatcher();
 const TPClient = new TP.Client();
 let actions: any = {};
 let modules: Array<any> = [];
+let pluginSettings: TPSettings = new TPSettings();
 
 /*
   Dynamically import a module from a path
@@ -93,5 +95,20 @@ pw.on('processTerminated', () => {
 // Start the processWatcher
 pw.watch(platform === 'win32' ? 'MeldStudio.exe' : 'MeldStudio');
 
+// Handle the Settings event from TouchPortal
+TPClient.on("Settings", (data:any) => {
+  TPClient.logIt("DEBUG", "Settings: New Settings from Touch-Portal ");
+  data.forEach((setting) => {
+    let key = Object.keys(setting)[0];
+    pluginSettings.setSetting(key, setting[key]);
+   
+    TPClient.logIt("DEBUG", "Settings: Setting received for |" + key + "|");
+  });
+
+  const includePrerelease = pluginSettings.getSetting("Allow Pre-Release of Plugin").toLowerCase() === "true";
+  TPClient.checkForUpdate(C.Str.GitHubUser, C.Str.GitHubRepo, includePrerelease)
+
+});
+
 // Connect to the TouchPortal API
-TPClient.connect({ pluginId: C.Str.PluginId, updateUrl: C.Str.UpdateUrl });
+TPClient.connect({ pluginId: C.Str.PluginId });

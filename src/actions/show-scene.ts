@@ -17,7 +17,8 @@ export default class ShowScene extends TpAction {
                     return Object.keys(this.sceneIdx).sort((a, b) => a.localeCompare(b));
                 }
             },
-        }
+        },
+        enabled: true
     }
     $MS: any = null;
     tp: any = null;

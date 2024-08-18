@@ -5,13 +5,14 @@ export default class ToggleRecord extends TpAction{
     tpAction: any = {
         id: C.Str.IdPrefix + 'toggle-record',
         name: "Toggle Record",
-        lineFormat: "Toggle Recording"
+        lineFormat: "Toggle Recording",
+        enabled: true
     }
     $MS: any = null;
     tp: any = null;
     tpStates: any = {
         'recording': {
-            id: 'recording',
+            id: C.Str.IdPrefix + 'recording',
             desc: 'Recording',
             type: 'choice',
             default: 'No',

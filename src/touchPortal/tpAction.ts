@@ -1,8 +1,7 @@
 export default class TpAction {
     tpAction: any = {};
     tpStates: any = {};
-    constructor() {
-    }
+    
     getTpFormat(asObject:boolean = false) {
         return asObject ? { "lineFormat": this.tpAction.lineFormat } : this.tpAction.lineFormat;
     }

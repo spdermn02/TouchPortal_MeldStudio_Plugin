@@ -2,6 +2,8 @@ import translate from "translate";
 
 import * as C from "../dist/consts.js";
 
+import * as TP from "../dist/touchPortal/tpSettings.js";
+
 import fs from "fs";
 import path from "path";
 import { getGlobals } from "common-es";
@@ -14,6 +16,17 @@ const languages = ["es", "fr", "pt", "tr", "fi", "nl", "de", "it"];
 
 let modules = [];
 let debug = process.argv.includes("--debug");
+
+// we have to mock the $MS and TPClient objects for the actions to work
+const $MS = {
+  on: (txt, func) => {},
+  meld: { isRecording: false, isStreaming: false },
+};
+const TPClient = {
+  on: (txt, func) => {},
+  choiceUpdate: (text, value) => {},
+  stateUpdate: (text, value) => {},
+};
 
 function translation(text, to) {
   if (text === undefined || text === null || text === "") {
@@ -97,6 +110,7 @@ const buildActionData = (action) => {
 };
 
 const loadActionData = async () => {
+  let tpStates = []; // Where we will put the entry.tp states
   let tpActions = []; // Where we will put the entry.tp actions
   let actions = {}; // where the action modules will be stored for processing
   /*
@@ -108,18 +122,6 @@ const loadActionData = async () => {
   for (const jsFile of jsFiles) {
     await dynamicImportModule(path.join(__dirname, "../dist/actions/", jsFile));
   }
-
-  
-  // we have to mock the $MS and TPClient objects
-  const $MS = {
-    on: (txt, func) => {},
-    meld: { isRecording: false, isStreaming: false },
-  };
-  const TPClient = {
-    on: (txt, func) => {},
-    choiceUpdate: (text, value) => {},
-    stateUpdate: (text, value) => {},
-  };
 
   for (const module of modules) {
     // Get the exported class (assuming it's the default export)
@@ -136,41 +138,70 @@ const loadActionData = async () => {
 
   // loop over actions object to build the actions for the entry.tp file
   for (const action in actions) {
+    let actionObj = actions[action];
+
+    if( actionObj.tpAction.enabled === false ) {
+      continue;
+    }
     if (debug) console.log("DEBUG: Building TP entry for", action);
     let tpAction = {
-      id: actions[action].getTpActionId(),
-      name: actions[action].getTpActionName(),
+      id: actionObj.getTpActionId(),
+      name: actionObj.getTpActionName(),
       lines: {},
       type: "communicate",
     };
 
     for (const lang of languages) {
-      let name = await translation(actions[action].getTpActionName(), lang);
+      let name = await translation(actionObj.getTpActionName(), lang);
       tpAction["name_" + lang] = name;
     }
 
     // Load to TP entry output
-    tpAction.lines.action = await buildLineTranslations(actions[action]);
+    tpAction.lines.action = await buildLineTranslations(actionObj);
 
-    if (actions[action]?.tpAction?.holdable) {
-      tpAction.lines.onHold = await buildLineTranslations(actions[action]);
+    if (actionObj?.tpAction?.holdable) {
+      tpAction.lines.onHold = await buildLineTranslations(actionObj);
     }
 
-    if (actions[action]?.tpAction?.data) {
-      tpAction.data = buildActionData(actions[action]);
+    if (actionObj?.tpAction?.data) {
+      tpAction.data = buildActionData(actionObj);
+    }
+
+    if( actionObj?.tpStates ) {
+      for( const state in actionObj.tpStates ) {
+        tpStates.push(actionObj.tpStates[state]);
+      }
     }
 
     tpActions.push(tpAction);
   }
-  return tpActions;
+
+  return [tpActions, tpStates];
 };
+
+const loadTPSettings = () => {
+  const settings = new TP.default.default();
+  const tpSettingsObj = settings.getTpSettings();
+  let tpSettings = [];
+  // for each setting in the settings object, build the settings object for the entry.tp file
+  for (const setting in tpSettingsObj) {
+    let settingObj = tpSettingsObj[setting];
+    let tpSetting = {
+      name: setting,
+      ...settingObj
+    };
+    tpSettings.push(tpSetting);
+  }
+  return tpSettings;
+
+}
 
 const buildEntry = async () => {
   // remove ../base/entry.tp first
   fs.rmSync(path.join(__dirname, "../base/entry.tp"), { force: true });
 
   const entry = {
-    "api": 7,
+    "api": 10,
     "version": 1,
     "name": C.Str.PluginName,
     "id": C.Str.PluginId,
@@ -183,13 +214,16 @@ const buildEntry = async () => {
    "plugin_start_cmd_mac": "sh %TP_PLUGIN_FOLDER%"+packageJson.name+"/start.sh "+packageJson.name,
     "categories": []
   }
-  const actions = await loadActionData();
+  const [ actions, states ] = await loadActionData();
   entry.categories[0] = {
     "id": C.Str.PluginId + "_main_category",
     "name": C.Str.PluginShortName,
     "imagepath":"%TP_PLUGIN_FOLDER%"+packageJson.name+"/icons/category-main.png",
-    "actions": actions
+    "actions": actions,
+    "states": states
   }
+
+  entry.settings = loadTPSettings();
 
   //write out a file to ../base/entry.tp containing pretty printed json of entry object
   fs.writeFileSync(path.join(__dirname, "../base/entry.tp"), JSON.stringify(entry, null, 2));

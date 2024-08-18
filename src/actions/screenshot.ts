@@ -5,7 +5,8 @@ export default class Screenshot extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'screenshot',
         name: "Take Screenshot",
-        lineFormat: "Take Screenshot"
+        lineFormat: "Take Screenshot",
+        enabled: true
     }
     meldId: string = "co.meldstudio.events.screenshot";
     $MS: any = null;

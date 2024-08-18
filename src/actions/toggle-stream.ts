@@ -5,7 +5,8 @@ export default class ToggleStream extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'toggle-stream',
         name: "Toggle Stream",
-        lineFormat: "Toggle Streaming"
+        lineFormat: "Toggle Streaming",
+        enabled: true
     }
     $MS: any = null;
     tp: any = null;
