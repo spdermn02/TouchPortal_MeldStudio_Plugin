@@ -23,7 +23,7 @@ export default class ToggleStream extends TpAction {
             ]
         }
     };
-    constructor( $MS: any, TPClient: any) {
+    constructor($MS: any, TPClient: any) {
         super();
         this.$MS = $MS;
         this.tp = TPClient;
@@ -31,22 +31,22 @@ export default class ToggleStream extends TpAction {
     }
     initialize() {
         this.tp.on('Action', (message: any) => {
-            if (this.compareActionId(message.actionId) ) {
+            if (this.compareActionId(message.actionId)) {
                 this.handleAction();
             }
         });
-        this.$MS.on('isStreamingChanged', (streaming:boolean=false) => {
+        this.$MS.on('isStreamingChanged', (streaming: boolean = false) => {
             this.updateState(streaming);
         });
         this.updateState(this.$MS.meld.isStreaming);
     }
     handleAction() {
-        if( this.$MS?.meld?.toggleStream ) {
+        if (this.$MS?.meld?.toggleStream) {
             this.$MS.meld.toggleStream();
         }
     }
-    updateState(streaming:boolean=false) {
+    updateState(streaming: boolean = false) {
         const value = streaming ? 1 : 0;
-        this.tp.stateUpdate( this.tpStates.streaming.id, this.tpStates.streaming.valueChoices[value]);
+        this.tp.stateUpdate(this.tpStates.streaming.id, this.tpStates.streaming.valueChoices[value]);
     }
 }

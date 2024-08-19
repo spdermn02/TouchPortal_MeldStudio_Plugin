@@ -11,7 +11,7 @@ export default class Screenshot extends TpAction {
     meldId: string = "co.meldstudio.events.screenshot";
     $MS: any = null;
     tp: any = null;
-    constructor( $MS: any, TPClient: any) {
+    constructor($MS: any, TPClient: any) {
         super();
         this.$MS = $MS;
         this.tp = TPClient;
@@ -20,7 +20,7 @@ export default class Screenshot extends TpAction {
     initialize() {
         this.tp.on('Action', (message: any) => {
             this.tp.logIt('INFO', 'Action', message);
-            if( message.actionId == this.getTpActionId() ) {
+            if (message.actionId == this.getTpActionId()) {
                 this.handleAction();
             }
         });

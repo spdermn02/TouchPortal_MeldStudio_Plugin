@@ -55,12 +55,12 @@ export default class ShowScene extends TpAction {
     }
     initialize() {
         this.tp.on('Action', (message: any) => {
-            if (message.actionId == this.getTpActionId() ) {
+            if (message.actionId == this.getTpActionId()) {
                 this.handleAction(message);
             }
         });
         this.$MS.on('sessionChanged', () => {
-            this.tp.logIt("DEBUG","Something changed in the session");
+            this.tp.logIt("DEBUG", "Something changed in the session");
             this.buildSceneIdx();
         });
         this.buildSceneIdx();

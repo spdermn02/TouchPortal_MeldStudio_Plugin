@@ -7,6 +7,7 @@ import * as TP from "../dist/touchPortal/tpSettings.js";
 import fs from "fs";
 import path from "path";
 import { getGlobals } from "common-es";
+import { type } from "os";
 const { __dirname } = getGlobals(import.meta.url);
 
 // read the package.json file in to a variable
@@ -53,22 +54,62 @@ const dynamicImportModule = async (modulePath) => {
 };
 
 const buildLineTranslations = async (action) => {
-  let lines = [
-    {
-      language: "default",
-      data: [action.getTpFormat(true)],
-    },
-  ];
+  const tpFormat = action.getTpFormat();
+  if (tpFormat === undefined || tpFormat === null || tpFormat === "") {
+    return undefined;
+  }
+  let lines = [];
+  if( Array.isArray(tpFormat) ) {
+    let data = [];
+    for( const line of tpFormat ) {
+      data.push({lineFormat: line});
+    }
+    lines= [
+      { 
+        language:"default",
+        data: data
+      }
+    ]
+  }
+  else {
+    lines = [
+      {
+        language: "default",
+        data: [
+          {
+            lineFormat: action.getTpFormat(),
+          },
+        ],
+      }
+    ];
+  }
+  
   for (const lang of languages) {
-    let text = await translation(action.getTpFormat(), lang);
-    lines.push({
-      language: lang,
-      data: [
-        {
+    const tpFormat = action.getTpFormat();
+    if( Array.isArray(tpFormat) ) {
+      let data = [];
+      for( const line of tpFormat ) {
+        let text = await translation(line, lang);
+        data.push({
           lineFormat: text,
-        },
-      ],
-    });
+        });
+      }
+      lines.push({
+        language: lang,
+        data: data
+      });
+    }
+    else {
+      let text = await translation(action.getTpFormat(), lang);
+      lines.push({
+        language: lang,
+        data: [
+          {
+            lineFormat: text,
+          },
+        ],
+      });
+    }
   }
   return lines;
 };
