@@ -1,6 +1,6 @@
 {
   "name": "touchportal-meldstudio-plugin",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha-1",
   "config": {
     "build": 1,
     "nodeTarget": "node18"
