@@ -2,15 +2,15 @@ import * as C from '../consts';
 import TpAction from '../touchPortal/tpAction';
 import { utils } from '../meldStudio/utils';
 
-export default class ShowScene extends TpAction {
+export default class StageScene extends TpAction {
     tpAction: any = {
-        id: C.Str.IdPrefix + 'show-scene',
-        name: "Show Scene",
-        lineFormat: "Show Scene {$tp_meld_studio_scene-list$}",
+        id: C.Str.IdPrefix + 'stage-scene',
+        name: "Stage Scene",
+        lineFormat: "Stage Scene {$tp_meld_studio_stage-scene-list$}",
         holdable: false,
         data: {
             'sceneList': {
-                id: C.Str.IdPrefix + 'scene-list',
+                id: C.Str.IdPrefix + 'stage-scene-list',
                 type: 'choice',
                 default: '',
                 valueChoices: () => {
@@ -23,30 +23,40 @@ export default class ShowScene extends TpAction {
     }
     $MS: any = null;
     tp: any = null;
-    currentSceneId: string = '';
+    stagedSceneId: string = '';
     sceneIdx: any = {}; // has name, value, data keys
     tpStates: any = {
-        'currentScene': {
-            id: C.Str.IdPrefix + 'current-scene',
-            desc: 'Current Scene Name',
+        'stagedScene': {
+            id: C.Str.IdPrefix + 'staged-scene',
+            desc: 'Staged Scene Name',
             type: 'text',
             default: '',
             parentGroup: 'Scene'
         },
-        'currentSceneId': {
-            id: C.Str.IdPrefix + 'current-scene-id',
-            desc: 'Current Scene ID',
+        'stagedSceneId': {
+            id: C.Str.IdPrefix + 'staged-scene-id',
+            desc: 'Staged Scene ID',
             type: 'text',
             default: '',
             parentGroup: 'Scene'
         },
-        'currentSceneNameId': {
-            id: C.Str.IdPrefix + 'current-scene-name-id',
-            desc: 'Current Scene Name & ID',
+        'stagedSceneNameId': {
+            id: C.Str.IdPrefix + 'staged-scene-name-id',
+            desc: 'Staged Scene Name & ID',
             type: 'text',
             default: '',
             parentGroup: 'Scene'
-        }
+        },
+        'sceneIsStaged': {
+            id: C.Str.IdPrefix + 'scene-is-staged',
+            desc: 'Is There a Scene Staged',
+            type: 'choice',
+            default: 'No',
+            valueChoices:  [
+                'No',
+                'Yes'
+            ] 
+        },
     }
     constructor($MS: any, TPClient: any) {
         super();
@@ -71,39 +81,58 @@ export default class ShowScene extends TpAction {
         if (!scene) {
             return;
         }
-        if (this.$MS?.meld?.showScene) {
-            this.$MS.meld.showScene(scene);
+        if (this.$MS?.meld?.setStagedScene) {
+            this.tp.logIt("DEBUG","Does this even work");
+            this.$MS.meld.setStagedScene(scene);
         }
     }
     buildSceneIdx() {
         this.sceneIdx = {};
+        let foundStaged = false;
+        let newScene = false;
         utils.getItemsByType(this.$MS, 'scene', null).forEach((item: any) => {
             const key = item.name + ' - ' + item.value;
+            if( !this.sceneIdx[key] ) {
+                newScene = true;
+            }
             this.sceneIdx[key] = item.value;
             // Only run the state update to TouchPortal if we actually
             // have a change in scene.
-            if (item.data.current && this.currentSceneId !== key) {
-                this.updateCurrentSceneStates(key, item);
-                this.currentSceneId = key;
+            if (item.data.staged && this.stagedSceneId !== key) {
+                foundStaged = true;
+                this.updateStagedSceneStates(key, item,'Yes');
+                this.stagedSceneId = key;
             }
         });
-        this.tp.choiceUpdate(this.tpAction.data.sceneList.id, this.tpAction.data.sceneList.valueChoices());
+        if( !foundStaged ) {
+            this.updateStagedSceneStates("", {"value":"","name":""}, 'No');
+            this.stagedSceneId = "";
+        }
+        if( newScene ) {
+            this.tp.choiceUpdate(this.tpAction.data.sceneList.id, this.tpAction.data.sceneList.valueChoices());
+        }
     }
-    updateCurrentSceneStates(key: string, item: any) {
+    updateStagedSceneStates(key: string, item: any, isStaged: string) {
         const states = [
             {
-                id: this.tpStates.currentScene.id,
+                id: this.tpStates.stagedScene.id,
                 value: item.name
             },
             {
-                id: this.tpStates.currentSceneId.id,
+                id: this.tpStates.stagedSceneId.id,
                 value: item.value
             },
             {
-                id: this.tpStates.currentSceneNameId.id,
+                id: this.tpStates.stagedSceneNameId.id,
                 value: key
+            },
+            {
+                id: this.tpStates.sceneIsStaged.id,
+                value: isStaged
             }
         ]
-        this.tp.stateUpdateMany(states);
+        if( this.tp.stateUpdateMany ) {
+            this.tp.stateUpdateMany(states);
+        }
     }
 }

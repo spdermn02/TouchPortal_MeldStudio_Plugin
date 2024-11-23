@@ -4,7 +4,7 @@ import TpAction from '../touchPortal/tpAction';
 export default class TransitionStepper extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'transition-stepper',
-        name: "Transition Stepper",
+        name: "Transition",
         lineFormat: "Transition Stepper",
         enabled: false
     }

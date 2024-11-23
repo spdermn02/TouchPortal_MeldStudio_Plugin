@@ -20,15 +20,23 @@ Meld Studio is a newer live streaming platform, so this plugin will allow "remot
 # TO DO
 - [X] Take Screenshot Action
 - [X] Show Scene Action
+- [X] Current Scene State Values
 - [X] Toggle Record Action
 - [X] Toggle Stream Action
 - [X] Toggle Effect Action
-- [ ] Toggle Layer Action
-- [ ] Toggle Monitor Action
-- [ ] Toggle Mute Action
-- [ ] Transition Stepper Action
+- [X] Toggle Layer Action
+- [X] Toggle Monitor Action
+- [X] Toggle Mute Action
+- [X] Set Staged Scene Action
+- [X] Staged Scene State Values
+- [ ] Transition Staged Scene to Active Scene
 - [ ] Volume Stepper Action
-- [ ] Volume Stepper Slider
+- [ ] Volume Slider Slider
+
+- [ ] Effect Visible/Hidden State Values
+- [ ] Layer Visible/Hidden State Values
+- [ ] Track Cued/Un-cued State Values
+- [ ] Track Un-muted/Muted State Values
 
 # Change Log
 

@@ -5,7 +5,7 @@ import { utils } from '../meldStudio/utils';
 export default class ToggleEffect extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'toggle_effect',
-        name: "Toggle Effect",
+        name: "Effect Visibility",
         lineFormat: ["For Scene {$tp_meld_studio_effect-scene-list$}",
             "and Layer {$tp_meld_studio_effect-layer-list$}",
             "then {$tp_meld_studio_effect-action$} the effect {$tp_meld_studio_effect-list$}"],

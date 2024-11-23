@@ -4,7 +4,7 @@ import TpAction from '../touchPortal/tpAction';
 export default class ToggleRecord extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'toggle-record',
-        name: "Toggle Record",
+        name: "Record",
         lineFormat: "Toggle Recording",
         enabled: true
     }

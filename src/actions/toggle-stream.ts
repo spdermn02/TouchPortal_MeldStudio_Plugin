@@ -4,7 +4,7 @@ import TpAction from '../touchPortal/tpAction';
 export default class ToggleStream extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'toggle-stream',
-        name: "Toggle Stream",
+        name: "Go Live",
         lineFormat: "Toggle Streaming",
         enabled: true
     }

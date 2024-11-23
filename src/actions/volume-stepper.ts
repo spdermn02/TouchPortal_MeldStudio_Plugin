@@ -4,7 +4,7 @@ import TpAction from '../touchPortal/tpAction';
 export default class VolumeStepper extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'volume-stepper',
-        name: "Volume Stepper",
+        name: "Track Volume",
         lineFormat: "Volume Stepper",
         enabled: false
     }
