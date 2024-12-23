@@ -85,8 +85,8 @@ const cleanInstallers  = () => {
     try {
       if( fs.existsSync('./Installers/') ) {
         fs.rmSync('./Installers/', { recursive : true})
-        fs.mkdirSync('./Installers/')
       }
+      fs.mkdirSync('./Installers/')
     } catch (err) {
         console.error(err);
     }
