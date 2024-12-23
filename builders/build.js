@@ -45,7 +45,7 @@ const build = async(platform, options ) => {
         fs.copyFileSync("./base/start.sh", `./base/${platform}/start.sh`)
     }
     if( platform == "MacOS-Arm64") {
-        nodeVersion = '???'
+        nodeVersion = 'node20-macos-arm64'
         fs.copyFileSync("./base/start.sh", `./base/${platform}/start.sh`)
     }
 
