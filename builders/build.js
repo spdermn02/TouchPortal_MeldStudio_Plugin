@@ -83,11 +83,13 @@ const copyFileSync = function(filePath, destDir) {
 
 const cleanInstallers  = () => {
     try {
-      fs.rmSync('./Installers/', { recursive : true})
-      fs.mkdirSync('./Installers/')
-      } catch (err) {
-        console.error(err);
+      if( fs.existsSync('./Installers/') ) {
+        fs.rmSync('./Installers/', { recursive : true})
+        fs.mkdirSync('./Installers/')
       }
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 const executeBuilds = async function() {

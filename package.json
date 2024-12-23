@@ -29,7 +29,7 @@
     "build": "npm run clean && tsc && node builders/build.js",
     "build-win": "npm run clean && tsc && node builders/build.js -p Windows",
     "build-mac": "npm run clean && tsc && node builders/build.js -p MacOS",
-    "build-mac-arm": "npm run clean && tsc && node builders/build.js -p MacOS-Arm64",
+    "build-mac-arm": "npm run clean && tsc && node builders/entry.mjs && node builders/build.js -p MacOS-Arm64",
     "full-build": "npm run clean && tsc && node builders/entry.mjs && node builders/build.js",
     "debug-entry": "tsc && node builders/entry.mjs --debug",
     "build-entry": "tsc && node builders/entry.mjs",
