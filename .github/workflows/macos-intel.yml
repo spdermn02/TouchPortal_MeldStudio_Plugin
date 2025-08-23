@@ -1,5 +1,5 @@
 # macOS Intel (x64) Build Workflow
-name: Build macOS Intel
+name: Build MacOS Intel
 
 on: [push]
 
@@ -17,7 +17,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install --global pkg
       - run: npm install --no-package-lock
-      - run: npm run build-mac
+      - run: npm run build-mac-x64
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
