@@ -1,5 +1,5 @@
 # macOS Intel (x64) Build Workflow
-name: Build macOS Intel
+name: Build MacOS Intel
 
 on: [push]
 
