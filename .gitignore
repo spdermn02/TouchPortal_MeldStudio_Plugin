@@ -134,3 +134,6 @@ Installers/
 
 # Built Files now
 base/entry.tp
+base/Windows
+base/Linux
+base/MacOS

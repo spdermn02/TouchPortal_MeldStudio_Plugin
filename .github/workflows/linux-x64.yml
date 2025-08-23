@@ -1,0 +1,25 @@
+# Linux x64 Build Workflow
+name: Build Linux x64
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install --global pkg
+      - run: npm install --no-package-lock
+      - run: npm run build-linux-x64
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TouchPortal_MeldStudio_Plugin
+          path: Installers/touchportal-meldstudio-plugin-Linux-x64-0.0.1-alpha-1.tpp

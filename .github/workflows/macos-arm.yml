@@ -28,4 +28,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: TouchPortal_MeldStudio_Plugin
-        path: Installers/touchportal-meldstudio-plugin-MacOS-Arm64-0.0.1-alpha-1.tpp
+        path: Installers/touchportal-meldstudio-plugin-MacOS-arm64-0.0.1-alpha-1.tpp

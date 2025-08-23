@@ -10,14 +10,16 @@ const BASE_SRC = "./base";  // source folder for icons and other meta data
 
 // use CLI -p argument to override build target platforms
 var targetPlatform = ["Windows", "MacOS"]
+let targetArchitecture = ["x64", "arm64"]
 
 // Handle CLI arguments
 for (let i=2; i < process.argv.length; ++i) {
   const arg = process.argv[i];
   if (arg == "-p") targetPlatform = process.argv[++i].split(',');
+  if (arg == "-a") targetArchitecture = process.argv[++i].split(',');
 }
 
-const build = async(platform, options ) => {
+const build = async(platform, architecture, options ) => {
     const STAGING = `${BASE_SRC}/${platform}`  // temporary package build destination
 
     // Remove staging directory in case of leftovers, then (re)create it.
@@ -34,25 +36,19 @@ const build = async(platform, options ) => {
     let osTarget = platform.toLowerCase()
     let execName = packageJson.name
 
-    if( platform.toLowerCase() === "Windows" ) {
+    if( platform.toLowerCase() === "windows" ) {
       osTarget = 'win'
       execName += '.exe'
     }
-      
 
-    if( platform == "MacOS") {
-        nodeVersion = 'node20-macos-x64'
-        fs.copyFileSync("./base/start.sh", `./base/${platform}/start.sh`)
-    }
-    if( platform == "MacOS-Arm64") {
-        nodeVersion = 'node20-macos-arm64'
+    if( platform == "MacOS" && architecture == "x64") {
         fs.copyFileSync("./base/start.sh", `./base/${platform}/start.sh`)
     }
 
-    console.log("Running pkg")
+    console.log(`Running pkg for ${packageJson.config.nodeTarget}-${osTarget}-${architecture}`)
     await pkg.exec([
       "--targets",
-      `${packageJson.config.nodeTarget}-${osTarget}-x64`,
+      `${packageJson.config.nodeTarget}-${osTarget}-${architecture}`,
       "--output",
       `${STAGING}/${execName}`,
       ".",
@@ -65,10 +61,7 @@ const build = async(platform, options ) => {
       packageJson.name
     );
     
-    let packageName = `./Installers/${packageJson.name}-${platform}-${packageJson.version}.tpp`
-    if( options?.type !== undefined ) {
-      packageName = `./Installers/${packageJson.name}-${platform}-${options.type}-${packageJson.version}.tpp`
-    }
+    packageName = `./Installers/${packageJson.name}-${platform}-${architecture}-${packageJson.version}.tpp`
 
     zip.writeZip(path.normalize(packageName))
 
@@ -95,9 +88,10 @@ const cleanInstallers  = () => {
 const executeBuilds = async function() {
   cleanInstallers()
   // for of loop for targetPlatform
-
   for (const platform of targetPlatform) {
-    await build(platform);
+    for (const architecture of targetArchitecture) {
+      await build(platform, architecture );
+    }
   }
 
 }
