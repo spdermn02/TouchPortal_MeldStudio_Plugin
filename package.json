@@ -3,7 +3,7 @@
   "version": "0.0.1-alpha-1",
   "config": {
     "build": 1,
-    "nodeTarget": "node18"
+    "nodeTarget": "node20"
   },
   "bin": {
     "touchportal-meldstudio-plugin": "dist/index.js"
