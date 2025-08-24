@@ -21,19 +21,18 @@ export default class MeldStudio extends EventEmitter {
 		this.connected = false;
 	}
 
-	initConnection() {
+	initConnection(ipAddress: string = '127.0.0.1') {
 		if (!this.connected) {
-		  this.connect();
+		  this.connect(ipAddress);
 		} else {
 		  console.log('MeldStudio already connected.');
 		}
 	}
 
-	connect(){
-		const address: string = '127.0.0.1';
+	connect(ipAddress: string) {
 		const port: number = 13376;
 
-		this.socket = new WebSocket(`ws://${address}:${port}`);
+		this.socket = new WebSocket(`ws://${ipAddress}:${port}`);
 		this.socket.on('error',() => {
 			console.log('Error: Connection Refused to MeldStudio, is it running?');
 		});

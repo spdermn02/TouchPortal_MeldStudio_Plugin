@@ -1,5 +1,12 @@
 export default class TPSettings {
     private tpSettings: any = {
+        "Meld Studio Websocket IP": {
+            "type": "text",
+            "default": "127.0.0.1",
+            "tooltip": {
+                "body": "The IP address of the machine running Meld Studio. If Meld Studio is running on the same machine as Touch Portal, you can leave this as 127.0.01."
+            }
+        },
         "Allow Pre-Release of Plugin": {
             "type": "switch",
             "default": "false",

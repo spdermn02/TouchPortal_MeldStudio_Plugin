@@ -71,7 +71,7 @@ pw.on('processReady', () => {
     }
   });
   setTimeout(() => {
-    $MS.initConnection();
+    $MS.initConnection(pluginSettings.getSetting("Meld Studio Websocket IP"));
   }, 2000);
 });
 
