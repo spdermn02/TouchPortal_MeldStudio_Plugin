@@ -29,7 +29,7 @@ Meld Studio is a newer live streaming platform, so this plugin will allow "remot
 - [X] Toggle Mute Action
 - [X] Set Staged Scene Action - *Not implemented in Meld Studio Yet*
 - [X] Staged Scene State Values - *Not implemented in Meld Studio Yet*
-- [ ] Transition Staged Scene to Active Scene
+- [X] Transition Staged Scene to Active Scene - Called `Show Staged Scene` - *Not implemented in Meld Studio Yet*
 - [ ] Volume Stepper Action
 - [ ] Volume Slider Slider
 
