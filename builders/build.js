@@ -43,7 +43,6 @@ const build = async(platform, architecture, options ) => {
 
     let node_version = packageJson.config.nodeTarget
     if( platform == "MacOS" ) {
-      if( architecture == "arm64" ) node_version = "node20-mac-arm64"
       fs.copyFileSync("./base/start.sh", `./base/${platform}/start.sh`)
     }
 
