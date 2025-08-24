@@ -3,7 +3,7 @@
   "version": "0.0.1-alpha-5",
   "config": {
     "build": 1,
-    "nodeTarget": "node-v20.19.4"
+    "nodeTarget": "node20"
   },
   "bin": {
     "touchportal-meldstudio-plugin": "dist/index.js"
@@ -54,12 +54,12 @@
     "ws": "^8.17.0"
   },
   "devDependencies": {
+    "@yao-pkg/pkg": "^6.6.0",
     "adm-zip": "^0.5.12",
     "bing-translate-api": "^4.0.2",
     "common-es": "^1.0.1",
     "dotenv": "^16.4.5",
     "fs-extra": "^11.2.0",
-    "pkg": "github:vercel/pkg",
     "translate": "^3.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"

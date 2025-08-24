@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install --global pkg
+      - run: npm install --global @yao-pkg/pkg # Using yao-pkg fork to get around pkg issue with node20+
       - run: npm install --no-package-lock
       - run: npm run build-mac-x64
       - name: Upload Release Asset
