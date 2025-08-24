@@ -4,6 +4,7 @@
 name: Build MacOS Arm Release
 
 on:
+  push:
   release:
     types: [published]
 jobs:
