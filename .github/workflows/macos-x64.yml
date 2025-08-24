@@ -1,8 +1,9 @@
 # macOS Intel (x64) Build Workflow
 name: Build MacOS Intel
 
-on: [push]
-
+on:
+  release:
+    types: [published]
 jobs:
   build:
     runs-on: macos-13
@@ -18,8 +19,9 @@ jobs:
       - run: npm install --global pkg
       - run: npm install --no-package-lock
       - run: npm run build-mac-x64
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
         with:
-          name: TouchPortal_MeldStudio_Plugin-MacOS_x64
-          path: Installers/*.tpp
+          files: Installers/*.tpp
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

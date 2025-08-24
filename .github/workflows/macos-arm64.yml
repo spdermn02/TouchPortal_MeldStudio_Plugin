@@ -3,29 +3,28 @@
 
 name: Build MacOS Arm
 
-on: [push]
-
+on:
+  release:
+    types: [published]
 jobs:
   build:
-
     runs-on: macos-latest
-
     strategy:
       matrix:
         node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install --global pkg
-    - run: npm install --no-package-lock
-    - run: npm run build-mac-arm64
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: TouchPortal_MeldStudio_Plugin-MacOS_arm64
-        path: Installers/*.tpp
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install --global pkg
+      - run: npm install --no-package-lock
+      - run: npm run build-mac-arm64
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Installers/*.tpp
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
