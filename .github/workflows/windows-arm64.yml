@@ -1,5 +1,5 @@
 # Windows ARM64 Build Workflow
-name: Build Windows ARM64
+name: Build Windows Arm64 Release
 
 on:
   release:

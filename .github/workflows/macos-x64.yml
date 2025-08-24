@@ -1,5 +1,5 @@
 # macOS Intel (x64) Build Workflow
-name: Build MacOS Intel
+name: Build MacOS Intel Release
 
 on:
   release:

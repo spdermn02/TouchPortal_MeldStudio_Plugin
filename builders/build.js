@@ -41,14 +41,16 @@ const build = async(platform, architecture, options ) => {
       execName += '.exe'
     }
 
-    if( platform == "MacOS" && architecture == "x64") {
-        fs.copyFileSync("./base/start.sh", `./base/${platform}/start.sh`)
+    let node_version = packageJson.config.nodeTarget
+    if( platform == "MacOS" ) {
+      node_version = "node20-macos-"+architecture
+      fs.copyFileSync("./base/start.sh", `./base/${platform}/start.sh`)
     }
 
-    console.log(`Running pkg for ${packageJson.config.nodeTarget}-${osTarget}-${architecture}`)
+    console.log(`Running pkg for ${node_version}-${osTarget}-${architecture}`)
     await pkg.exec([
       "--targets",
-      `${packageJson.config.nodeTarget}-${osTarget}-${architecture}`,
+      `${node_version}-${osTarget}-${architecture}`,
       "--output",
       `${STAGING}/${execName}`,
       ".",

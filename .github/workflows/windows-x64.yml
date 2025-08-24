@@ -1,4 +1,4 @@
-name: Release Windows x64
+name: Build Windows x64 Release
 on:
   release:
     types: [published]
