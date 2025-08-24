@@ -1,7 +1,7 @@
 import * as C from '../consts';
 import TpAction from '../touchPortal/tpAction';
 
-export default class StageScene extends TpAction {
+export default class ShowStagedScene extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'show-staged-scene',
         name: "Show Staged Scene",
@@ -11,10 +11,6 @@ export default class StageScene extends TpAction {
     }
     $MS: any = null;
     tp: any = null;
-    stagedSceneId: string = '';
-    sceneIdx: any = {}; // has name, value, data keys
-    tpStates: any = {
-    }
     constructor($MS: any, TPClient: any) {
         super();
         this.$MS = $MS;
