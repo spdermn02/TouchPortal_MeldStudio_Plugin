@@ -70,4 +70,4 @@ Use the Github Issues tab to report any bugs/enhancements for this plug-in. Or m
 
 # Acknowledgements
 1. Thank you to Reinier and Ty, the Touch Portal Creators
-2. Thank you [Meld Studio](https://www.streamwithmeld.com/) for the support and documentation and the open sourcing of the [Meld Studio StreamDeck Plugin](https://github.com/MeldStudio/streamdeck)
+2. Thank you [Meld Studio](https://www.streamwithmeld.com/) for the support and [documentation](https://github.com/MeldStudio/streamdeck/blob/main/WebChannelAPI.md) and the open sourcing of the [Meld Studio StreamDeck Plugin](https://github.com/MeldStudio/streamdeck)
