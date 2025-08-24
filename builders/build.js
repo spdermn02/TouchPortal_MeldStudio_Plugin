@@ -2,7 +2,7 @@ const AdmZip = require("adm-zip");
 const path  = require("path");
 const fs = require("fs");
 const fse = require( "fs-extra" );
-const pkg = require("pkg");
+const pkg = require("@yao-pkg/pkg");
 const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf8"))
 const { exit } = require("process")
 
