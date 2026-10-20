@@ -12,7 +12,8 @@
     "assets": [
       "dist/actions/**",
       "dist/meldStudio/**",
-      "dist/touchPortal/**"
+      "dist/touchPortal/**",
+      "dist/utils/**"
     ]
   },
   "repository": {
@@ -20,7 +21,7 @@
     "url": "https://github.com/spdermn02/TouchPortal_MeldStudio_Plugin.git"
   },
   "description": "Touch Portal integration with Meld Studio",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "tsc": "tsc",
     "clean": "tsc -b --clean",
@@ -45,7 +46,7 @@
     "Plugin"
   ],
   "author": "Jameson Allen (aka Spdermn02)",
-  "license": "LGPL-3.0-or-later",
+  "license": "MIT",
   "dependencies": {
     "@types/node": "^20.12.12",
     "@types/ws": "^8.5.10",

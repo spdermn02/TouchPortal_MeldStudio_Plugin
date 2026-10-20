@@ -1,4 +1,5 @@
 import * as C from '../consts';
+import { DEBUG_MODE } from '../consts';
 import TpAction from '../touchPortal/tpAction';
 import { utils } from '../meldStudio/utils';
 
@@ -55,7 +56,8 @@ export default class StageScene extends TpAction {
             valueChoices:  [
                 'No',
                 'Yes'
-            ] 
+            ],
+            parentGroup: 'Scene'
         },
     }
     constructor($MS: any, TPClient: any) {
@@ -71,7 +73,7 @@ export default class StageScene extends TpAction {
             }
         });
         this.$MS.on('sessionChanged', () => {
-            this.tp.logIt("DEBUG", "Something changed in the session");
+            if (DEBUG_MODE) this.tp.logIt("DEBUG", "Something changed in the session");
             this.buildSceneIdx();
         });
         this.buildSceneIdx();
@@ -82,7 +84,6 @@ export default class StageScene extends TpAction {
             return;
         }
         if (this.$MS?.meld?.setStagedScene) {
-            this.tp.logIt("DEBUG","Does this even work");
             this.$MS.meld.setStagedScene(scene);
         }
     }

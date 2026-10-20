@@ -4,7 +4,7 @@ export default class TPSettings {
             "type": "text",
             "default": "127.0.0.1",
             "tooltip": {
-                "body": "The IP address of the machine running Meld Studio. If Meld Studio is running on the same machine as Touch Portal, you can leave this as 127.0.01."
+                "body": "The IP address of the machine running Meld Studio. If Meld Studio is running on the same machine as Touch Portal, you can leave this as 127.0.0.1."
             }
         },
         "Allow Pre-Release of Plugin": {
@@ -12,6 +12,13 @@ export default class TPSettings {
             "default": "false",
             "tooltip": {
                 "body": "Allow the update checker to notify you of pre-release versions of the plugin."
+            }
+        },
+        "Enable Debug Logging": {
+            "type": "switch",
+            "default": "false",
+            "tooltip": {
+                "body": "Enable verbose debug logging. Only enable this when troubleshooting issues."
             }
         }
     }

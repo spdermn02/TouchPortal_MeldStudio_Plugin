@@ -11,3 +11,24 @@ export const enum Str {
     TPParentCategory = 'streaming' // Where in TP will this Plugin Showup
 };
 
+// Debug mode flag - set to true to enable verbose DEBUG logging
+// Can also be enabled via environment variable: DEBUG_MODE=true
+// Or via TouchPortal setting "Enable Debug Logging"
+export let DEBUG_MODE: boolean = process.env.DEBUG_MODE === 'true' || false;
+
+export function setDebugMode(enabled: boolean) {
+    DEBUG_MODE = enabled;
+}
+
+// Global state readiness flag - prevents state updates until all modules have created their states
+// This is set to true after a delay in index.ts once all action modules are initialized
+export let STATES_READY: boolean = false;
+
+export function setStatesReady(ready: boolean) {
+    STATES_READY = ready;
+}
+
+// Delay in ms to wait after state creation before allowing updates
+// Must be long enough for TouchPortal to process createState calls
+export const STATE_INIT_DELAY_MS: number = 1500;
+

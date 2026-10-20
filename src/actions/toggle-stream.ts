@@ -20,7 +20,8 @@ export default class ToggleStream extends TpAction {
             valueChoices: [
                 'No',
                 'Yes'
-            ]
+            ],
+            parentGroup: 'Status'
         }
     };
     constructor($MS: any, TPClient: any) {

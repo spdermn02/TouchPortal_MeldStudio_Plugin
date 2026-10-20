@@ -1,6 +1,8 @@
 import * as C from '../consts';
+import { DEBUG_MODE, STATE_INIT_DELAY_MS } from '../consts';
 import TpAction from '../touchPortal/tpAction';
 import { utils } from '../meldStudio/utils';
+import { stateManager } from '../utils/stateManager';
 
 export default class ToggleLayer extends TpAction {
     tpAction: any = {
@@ -41,11 +43,24 @@ export default class ToggleLayer extends TpAction {
             },
         }
     }
+    // Dynamic states - created at runtime with layer UUIDs
+    tpStates: any = {
+        'layerVisible': {
+            id: C.Str.IdPrefix + 'layer-visible',
+            desc: 'Layer Visibility State (per layer)',
+            type: 'choice',
+            default: 'No',
+            valueChoices: ['No', 'Yes'],
+            parentGroup: 'Meld Studio | Layers',
+            dynamic: true
+        }
+    }
     $MS: any = null;
     tp: any = null;
     sceneIdx: any = {}; // has name, value, data keys
     layerIdx: any = {}; // has name, value, data keys
     instances: any = {};
+    createdStates: Set<string> = new Set(); // Track which dynamic states have been created
     constructor($MS: any, TPClient: any) {
         super();
         this.$MS = $MS;
@@ -64,7 +79,7 @@ export default class ToggleLayer extends TpAction {
             }
         });
         this.$MS.on('sessionChanged', () => {
-            this.tp.logIt("DEBUG", "Something changed in the session");
+            if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-layer: Session changed");
             this.buildSceneIdx();
             this.buildLayerIdx();
         });
@@ -87,6 +102,8 @@ export default class ToggleLayer extends TpAction {
         utils.getItemsByType(this.$MS, 'layer', null).forEach((item: any) => {
             const key = item.name + ' - ' + item.value;
             this.layerIdx[key] = item;
+            // Create dynamic state for this layer if not already created
+            this.createLayerState(item.value, item.name);
         });
         if (instanceId) {
             this.tp.choiceUpdateSpecific(this.tpAction.data.layerLayerList.id, this.tpAction.data.layerLayerList.valueChoices(), instanceId);
@@ -94,9 +111,53 @@ export default class ToggleLayer extends TpAction {
         else {
             this.tp.choiceUpdate(this.tpAction.data.layerLayerList.id, this.tpAction.data.layerLayerList.valueChoices());
         }
+        // Delay state updates to run after global STATES_READY is set
+        setTimeout(() => {
+            this.updateAllVisibilityStates();
+        }, STATE_INIT_DELAY_MS + 100);
+    }
+    createLayerState(layerId: string, layerName: string) {
+        const stateId = C.Str.IdPrefix + 'layer-visible-' + layerId;
+        if (!this.createdStates.has(stateId)) {
+            try {
+                // Remove state first to ensure clean creation
+                this.tp.removeState(stateId);
+            } catch (error) {
+                // State may not exist yet, ignore
+            }
+            try {
+                this.tp.createState(
+                    stateId,
+                    `Layer Visible: ${layerName}`,
+                    'No',
+                    'Meld Studio | Layers'
+                );
+                if (DEBUG_MODE) this.tp.logIt("DEBUG", `toggle-layer: Created dynamic state: ${stateId}`);
+            } catch (error) {
+                this.tp.logIt("ERROR", `toggle-layer: Failed to create state: ${stateId}`);
+            }
+            this.createdStates.add(stateId);
+        }
+    }
+    updateVisibilityState(layerId: string, visible: boolean) {
+        const stateId = C.Str.IdPrefix + 'layer-visible-' + layerId;
+        const value = visible ? 'Yes' : 'No';
+        stateManager.updateState(stateId, value);
+    }
+    updateAllVisibilityStates() {
+        const states: Array<{ id: string, value: string }> = [];
+        for (const key in this.layerIdx) {
+            const layer = this.layerIdx[key];
+            const stateId = C.Str.IdPrefix + 'layer-visible-' + layer.value;
+            const value = layer.data.visible ? 'Yes' : 'No';
+            states.push({ id: stateId, value });
+        }
+        if (states.length > 0) {
+            stateManager.updateStateMany(states);
+        }
     }
     handleAction(message: any) {
-        this.tp.logIt("DEBUG", "Handling action", JSON.stringify(message));
+        if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-layer: Handling action", JSON.stringify(message));
         const sceneId = this.sceneIdx[message.data[0].value].value;
         const action = message.data[1].value;
         const layer = this.layerIdx[message.data[2].value];

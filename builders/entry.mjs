@@ -150,9 +150,35 @@ const buildActionData = (action) => {
   return data;
 };
 
+const buildConnectorData = (connector) => {
+  let data = [];
+  if (!connector.data) return data;
+
+  for (const key in connector.data) {
+    let dataElement = connector.data[key];
+    let tpData = {
+      id: dataElement.id,
+      default: dataElement?.default,
+      type: dataElement.type,
+    };
+
+    if (dataElement?.valueChoices) {
+      if (typeof dataElement.valueChoices === "function") {
+        tpData.valueChoices = dataElement.valueChoices();
+      } else {
+        tpData.valueChoices = dataElement.valueChoices;
+      }
+    }
+
+    data.push(tpData);
+  }
+  return data;
+};
+
 const loadActionData = async () => {
   let tpStates = []; // Where we will put the entry.tp states
   let tpActions = []; // Where we will put the entry.tp actions
+  let tpConnectors = []; // Where we will put the entry.tp connectors
   let actions = {}; // where the action modules will be stored for processing
   /*
     Load all the action files in the actions folder
@@ -210,14 +236,41 @@ const loadActionData = async () => {
 
     if( actionObj?.tpStates ) {
       for( const state in actionObj.tpStates ) {
+        // Skip dynamic states - they are created at runtime with UUIDs appended
+        if( actionObj.tpStates[state].dynamic === true ) {
+          continue;
+        }
         tpStates.push(actionObj.tpStates[state]);
       }
+    }
+
+    // Process connectors if defined
+    if (actionObj?.tpConnector) {
+      let connector = actionObj.tpConnector;
+      let tpConnector = {
+        id: connector.id,
+        name: connector.name,
+        format: connector.format,
+      };
+
+      // Add supportedTypes if defined (API 12.0+)
+      if (connector.supportedTypes) {
+        tpConnector.supportedTypes = connector.supportedTypes;
+      }
+
+      // Add data if defined
+      if (connector.data) {
+        tpConnector.data = buildConnectorData(connector);
+      }
+
+      if (debug) console.log("DEBUG: Building connector for", connector.name);
+      tpConnectors.push(tpConnector);
     }
 
     tpActions.push(tpAction);
   }
 
-  return [tpActions, tpStates];
+  return [tpActions, tpStates, tpConnectors];
 };
 
 const loadTPSettings = () => {
@@ -242,7 +295,7 @@ const buildEntry = async () => {
   fs.rmSync(path.join(__dirname, "../base/entry.tp"), { force: true });
 
   const entry = {
-    "api": 10,
+    "api": 12,
     "version": 1,
     "name": C.Str.PluginName,
     "id": C.Str.PluginId,
@@ -255,13 +308,14 @@ const buildEntry = async () => {
    "plugin_start_cmd_mac": "sh %TP_PLUGIN_FOLDER%"+packageJson.name+"/start.sh "+packageJson.name,
     "categories": []
   }
-  const [ actions, states ] = await loadActionData();
+  const [ actions, states, connectors ] = await loadActionData();
   entry.categories[0] = {
     "id": C.Str.PluginId + "_main_category",
     "name": C.Str.PluginShortName,
     "imagepath":"%TP_PLUGIN_FOLDER%"+packageJson.name+"/icons/category-main.png",
     "actions": actions,
-    "states": states
+    "states": states,
+    "connectors": connectors
   }
 
   entry.settings = loadTPSettings();

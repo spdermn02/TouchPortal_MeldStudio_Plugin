@@ -1,6 +1,8 @@
 import * as C from '../consts';
+import { DEBUG_MODE, STATE_INIT_DELAY_MS } from '../consts';
 import TpAction from '../touchPortal/tpAction';
 import { utils } from '../meldStudio/utils';
+import { stateManager } from '../utils/stateManager';
 
 export default class ToggleMonitor extends TpAction {
     tpAction: any = {
@@ -31,9 +33,22 @@ export default class ToggleMonitor extends TpAction {
             }
         }
     }
+    // Dynamic states - created at runtime with track UUIDs
+    tpStates: any = {
+        'trackCued': {
+            id: C.Str.IdPrefix + 'track-cued',
+            desc: 'Track Cued State (per track)',
+            type: 'choice',
+            default: 'No',
+            valueChoices: ['No', 'Yes'],
+            parentGroup: 'Meld Studio | Audio',
+            dynamic: true
+        }
+    }
     $MS: any = null;
     tp: any = null;
     trackIdx: any = {}; // has name, value, data keys
+    createdStates: Set<string> = new Set(); // Track which dynamic states have been created
     constructor($MS: any, TPClient: any) {
         super();
         this.$MS = $MS;
@@ -47,12 +62,29 @@ export default class ToggleMonitor extends TpAction {
             }
         });
         this.$MS.on('sessionChanged', () => {
-            this.tp.logIt("DEBUG", "Something changed in the session");
+            if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-monitor: Session changed");
             this.buildTrackIdx();
         });
     }
+    updateCuedState(trackId: string, monitoring: boolean) {
+        const stateId = C.Str.IdPrefix + 'track-cued-' + trackId;
+        const value = monitoring ? 'Yes' : 'No';
+        stateManager.updateState(stateId, value);
+    }
+    updateAllCuedStates() {
+        const states: Array<{ id: string, value: string }> = [];
+        for (const key in this.trackIdx) {
+            const track = this.trackIdx[key];
+            const stateId = C.Str.IdPrefix + 'track-cued-' + track.value;
+            const value = track.data.monitoring ? 'Yes' : 'No';
+            states.push({ id: stateId, value });
+        }
+        if (states.length > 0) {
+            stateManager.updateStateMany(states);
+        }
+    }
     handleAction(message: any) {
-        this.tp.logIt("DEBUG", "Handling action", JSON.stringify(message));
+        if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-monitor: Handling action", JSON.stringify(message));
         const track = this.trackIdx[message.data[0].value];
         const action = message.data[1].value;
 
@@ -80,8 +112,37 @@ export default class ToggleMonitor extends TpAction {
         utils.getItemsByType(this.$MS, 'track', null).forEach((item: any) => {
             const key = item.name + ' - ' + item.value;
             this.trackIdx[key] = item;
+            // Create dynamic state for this track if not already created
+            this.createTrackState(item.value, item.name);
         });
         this.tp.choiceUpdate(this.tpAction.data.trackList.id, this.tpAction.data.trackList.valueChoices());
+        // Delay state updates to run after global STATES_READY is set
+        setTimeout(() => {
+            this.updateAllCuedStates();
+        }, STATE_INIT_DELAY_MS + 100);
+    }
+    createTrackState(trackId: string, trackName: string) {
+        const stateId = C.Str.IdPrefix + 'track-cued-' + trackId;
+        if (!this.createdStates.has(stateId)) {
+            try {
+                // Remove state first to ensure clean creation
+                this.tp.removeState(stateId);
+            } catch (error) {
+                // State may not exist yet, ignore
+            }
+            try {
+                this.tp.createState(
+                    stateId,
+                    `Track Cued: ${trackName}`,
+                    'No',
+                    'Meld Studio | Audio'
+                );
+                if (DEBUG_MODE) this.tp.logIt("DEBUG", `toggle-monitor: Created dynamic state: ${stateId}`);
+            } catch (error) {
+                this.tp.logIt("ERROR", `toggle-monitor: Failed to create state: ${stateId}`);
+            }
+            this.createdStates.add(stateId);
+        }
     }
 
 }

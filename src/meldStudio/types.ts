@@ -1,4 +1,4 @@
-// Types Documented based on info from: 
+// Types Documented based on info from:
 // https://github.com/MeldStudio/streamdeck/blob/main/WebChannelAPI.md
 
 export type MeldScene = {
@@ -14,7 +14,8 @@ export type MeldAudioTrack = {
     parent?:string,
     name:string,
     monitoring:boolean,
-    muted:boolean
+    muted:boolean,
+    gain?:number
 }
 
 export type MeldLayer = {
@@ -22,7 +23,9 @@ export type MeldLayer = {
     parent:string,
     index:number,
     name:string,
-    visible:boolean
+    visible:boolean,
+    mediaSource?:string,
+    isPlaying?:boolean
 }
 
 export type MeldEffect = {
@@ -56,5 +59,37 @@ export type MeldStudio = {
     sessionChanged?:MeldDefaultSignal,
     isStreamingChanged?:MeldDefaultSignal,
     isRecordingChanged?:MeldDefaultSignal,
-    sendEvent?:(event:string) => void
+    // Client identification
+    setClientName?:(name:string) => void,
+    sendEvent?:(event:string) => void,
+    // Scene methods
+    showScene?:(sceneId:string) => void,
+    showStagedScene?:() => void,
+    setStagedScene?:(sceneId:string) => void,
+    // Layer methods
+    toggleLayer?:(sceneId:string, layerId:string) => void,
+    // Effect methods
+    toggleEffect?:(sceneId:string, layerId:string, effectId:string) => void,
+    // Audio methods
+    toggleMute?:(trackId:string) => void,
+    toggleMonitor?:(trackId:string) => void,
+    setGain?:(trackId:string, gain:number) => void,
+    volumeUp?:() => void,
+    volumeDown?:() => void,
+    // Track observer methods - required for receiving gainUpdated signals
+    // Note: parameter order is (context, trackId) not (trackId, context)
+    registerTrackObserver?:(context:string, trackId:string) => void,
+    unregisterTrackObserver?:(context:string, trackId:string) => void,
+    // Recording/Streaming
+    toggleRecord?:() => void,
+    toggleStream?:() => void,
+    // Generic property setter
+    setProperty?:(objectId:string, property:string, value:any) => void,
+    // Function calls for media layers
+    callFunction?:(layerId:string, command:string) => void,
+    callFunctionWithArgs?:(layerId:string, command:string, args:any[]) => void,
+    // Command sending
+    sendCommand?:(command:string) => void,
+    // Stream events for widgets
+    sendStreamEvent?:(type:string, data:any) => void
 }

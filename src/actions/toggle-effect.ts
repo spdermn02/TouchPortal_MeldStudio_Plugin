@@ -1,6 +1,8 @@
 import * as C from '../consts';
+import { DEBUG_MODE, STATE_INIT_DELAY_MS } from '../consts';
 import TpAction from '../touchPortal/tpAction';
 import { utils } from '../meldStudio/utils';
+import { stateManager } from '../utils/stateManager';
 
 export default class ToggleEffect extends TpAction {
     tpAction: any = {
@@ -51,12 +53,25 @@ export default class ToggleEffect extends TpAction {
         },
         enabled: true
     }
+    // Dynamic states - created at runtime with effect UUIDs
+    tpStates: any = {
+        'effectEnabled': {
+            id: C.Str.IdPrefix + 'effect-enabled',
+            desc: 'Effect Enabled State (per effect)',
+            type: 'choice',
+            default: 'No',
+            valueChoices: ['No', 'Yes'],
+            parentGroup: 'Meld Studio | Effects',
+            dynamic: true
+        }
+    }
     $MS: any = null;
     tp: any = null;
     sceneIdx: any = {}; // has name, value, data keys
     layerIdx: any = {}; // has name, value, data keys
     effectIdx: any = {}; // has name, value, data keys
     instances: any = {};
+    createdStates: Set<string> = new Set(); // Track which dynamic states have been created
     constructor($MS: any, TPClient: any) {
         super();
         this.$MS = $MS;
@@ -75,14 +90,14 @@ export default class ToggleEffect extends TpAction {
             }
         });
         this.$MS.on('sessionChanged', () => {
-            this.tp.logIt("DEBUG", "Something changed in the session");
+            if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-effect: Session changed");
             this.buildSceneIdx();
             this.buildLayerIdx();
             this.buildEffectIdx();
         });
     }
     handleAction(message: any) {
-        this.tp.logIt("DEBUG", "Handling action", JSON.stringify(message));
+        if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-effect: Handling action", JSON.stringify(message));
         const sceneId = this.sceneIdx[message.data[0].value].value;
         const layerId = this.layerIdx[message.data[1].value].value;
         const action = message.data[2].value;
@@ -139,12 +154,58 @@ export default class ToggleEffect extends TpAction {
         utils.getItemsByType(this.$MS, 'effect', null).forEach((item: any) => {
             const key = item.name + ' - ' + item.value;
             this.effectIdx[key] = item;
+            // Create dynamic state for this effect if not already created
+            this.createEffectState(item.value, item.name);
         });
         if (instanceId) {
             this.tp.choiceUpdateSpecific(this.tpAction.data.effectList.id, this.tpAction.data.effectList.valueChoices(), instanceId);
         }
         else {
             this.tp.choiceUpdate(this.tpAction.data.effectList.id, this.tpAction.data.effectList.valueChoices());
+        }
+        // Delay state updates to run after global STATES_READY is set
+        setTimeout(() => {
+            this.updateAllEnabledStates();
+        }, STATE_INIT_DELAY_MS + 100);
+    }
+    createEffectState(effectId: string, effectName: string) {
+        const stateId = C.Str.IdPrefix + 'effect-enabled-' + effectId;
+        if (!this.createdStates.has(stateId)) {
+            try {
+                // Remove state first to ensure clean creation
+                this.tp.removeState(stateId);
+            } catch (error) {
+                // State may not exist yet, ignore
+            }
+            try {
+                this.tp.createState(
+                    stateId,
+                    `Effect Enabled: ${effectName}`,
+                    'No',
+                    'Meld Studio | Effects'
+                );
+                if (DEBUG_MODE) this.tp.logIt("DEBUG", `toggle-effect: Created dynamic state: ${stateId}`);
+            } catch (error) {
+                this.tp.logIt("ERROR", `toggle-effect: Failed to create state: ${stateId}`);
+            }
+            this.createdStates.add(stateId);
+        }
+    }
+    updateEnabledState(effectId: string, enabled: boolean) {
+        const stateId = C.Str.IdPrefix + 'effect-enabled-' + effectId;
+        const value = enabled ? 'Yes' : 'No';
+        stateManager.updateState(stateId, value);
+    }
+    updateAllEnabledStates() {
+        const states: Array<{ id: string, value: string }> = [];
+        for (const key in this.effectIdx) {
+            const effect = this.effectIdx[key];
+            const stateId = C.Str.IdPrefix + 'effect-enabled-' + effect.value;
+            const value = effect.data.enabled ? 'Yes' : 'No';
+            states.push({ id: stateId, value });
+        }
+        if (states.length > 0) {
+            stateManager.updateStateMany(states);
         }
     }
     handleListChange(message) {

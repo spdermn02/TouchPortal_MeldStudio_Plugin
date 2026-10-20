@@ -20,7 +20,8 @@ export default class ToggleRecord extends TpAction {
             valueChoices: [
                 'No',
                 'Yes'
-            ]
+            ],
+            parentGroup: 'Status'
         }
     };
     constructor($MS: any, TPClient: any) {
@@ -42,7 +43,7 @@ export default class ToggleRecord extends TpAction {
     }
     updateState(recording: boolean = false) {
         const value = recording ? 1 : 0;
-        this.tp.stateUpdate(C.Str.IdPrefix + this.tpStates.recording.id, this.tpStates.recording.valueChoices[value]);
+        this.tp.stateUpdate(this.tpStates.recording.id, this.tpStates.recording.valueChoices[value]);
     }
     handleAction() {
         if (this.$MS?.meld?.toggleRecord) {

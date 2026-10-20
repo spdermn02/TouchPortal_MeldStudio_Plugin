@@ -1,4 +1,5 @@
 import * as C from '../consts';
+import { DEBUG_MODE } from '../consts';
 import TpAction from '../touchPortal/tpAction';
 import { utils } from '../meldStudio/utils';
 
@@ -61,7 +62,7 @@ export default class ShowScene extends TpAction {
             }
         });
         this.$MS.on('sessionChanged', () => {
-            this.tp.logIt("DEBUG", "Something changed in the session");
+            if (DEBUG_MODE) this.tp.logIt("DEBUG", "Something changed in the session");
             this.buildSceneIdx();
         });
         this.buildSceneIdx();
