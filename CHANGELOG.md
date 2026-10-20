@@ -1,6 +1,6 @@
 # Touch Portal Meld Studio Plugin - Change Log
 
-## Unreleased
+## v0.0.1-alpha-8
 
 ### New Features
 
