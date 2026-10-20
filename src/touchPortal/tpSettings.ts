@@ -9,14 +9,14 @@ export default class TPSettings {
         },
         "Allow Pre-Release of Plugin": {
             "type": "switch",
-            "default": "false",
+            "default": "Off",
             "tooltip": {
                 "body": "Allow the update checker to notify you of pre-release versions of the plugin."
             }
         },
         "Enable Debug Logging": {
             "type": "switch",
-            "default": "false",
+            "default": "Off",
             "tooltip": {
                 "body": "Enable verbose debug logging. Only enable this when troubleshooting issues."
             }
@@ -42,6 +42,10 @@ export default class TPSettings {
             return null;
         }
         return this.settings[settingName];
+    }
+    getSwitchSetting(settingName: string): boolean {
+        // TP sends switch settings as "On"/"Off" - accept true/1/yes too so older stored values still work
+        return /^(on|true|1|yes)$/i.test(String(this.getSetting(settingName) ?? '').trim());
     }
     setSetting(settingName: string, settingValue: any) {
         // if requested setting is not in tp settings, return false

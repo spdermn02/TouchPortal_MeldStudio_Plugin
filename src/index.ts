@@ -192,7 +192,7 @@ TPClient.on("Settings", (data:any) => {
   });
 
   // Update debug mode based on setting
-  const debugEnabled = pluginSettings.getSetting("Enable Debug Logging")?.toLowerCase() === "true";
+  const debugEnabled = pluginSettings.getSwitchSetting("Enable Debug Logging");
   setDebugMode(debugEnabled);
 
   // Settings arrive after connecting to TP (and again on every change), so the
@@ -210,7 +210,7 @@ TPClient.on("Settings", (data:any) => {
     TPClient.logIt("INFO", "Debug logging enabled");
   }
 
-  const includePrerelease = pluginSettings.getSetting("Allow Pre-Release of Plugin").toLowerCase() === "true";
+  const includePrerelease = pluginSettings.getSwitchSetting("Allow Pre-Release of Plugin");
   TPClient.checkForUpdate(C.Str.GitHubUser, C.Str.GitHubRepo, includePrerelease)
 
 });
