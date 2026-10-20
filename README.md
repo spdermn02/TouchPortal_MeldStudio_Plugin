@@ -8,6 +8,7 @@ Plugin for Touch Portal to control Meld Studio
 - [Documentation](#documentation)
 - [Remote Meld Studio](#remote-meld-studio)
 - [Volume Slider / Dial](#volume-slider--dial)
+- [Layer Properties](#layer-properties)
 - [Building](#building)
 - [Development Dependencies](#development-dependencies)
 - [Versioning](#versioning)
@@ -40,12 +41,18 @@ Meld Studio is a newer live streaming platform, so this plugin will allow "remot
 - [X] Media Control Action
 - [X] Replay Control Action
 - [X] Widget Control Action
+- [X] Set Layer Property Action
+- [X] Toggle Virtual Camera Action
+- [X] Start/Stop Stream & Record
+- [X] Media Seek
+- [X] Vertical Screenshot
 
 - [X] Effect Visible/Hidden State Values
 - [X] Layer Visible/Hidden State Values
 - [X] Track Cued/Un-cued State Values
 - [X] Track Un-muted/Muted State Values
 - [X] Track Volume State Values
+- [X] Layer Property State Values (optional)
 - [X] Remote Meld Studio connection (non-local Websocket IP)
 
 # Change Log
@@ -79,6 +86,16 @@ The **Track Volume Slider** connector works on sliders and dials, and follows vo
 Position maps linearly to dB from -60 dB to 0 dB, so it moves like a mixer fader. The `Track Volume %` state and
 the `%` stepper sizes use the same fader position. **Set dials to a 0-100 range** - Touch Portal doesn't tell the
 plugin a dial's configured range, and values outside 0-100 are clamped.
+
+# Layer Properties
+
+**Set Layer Property** changes a layer's X, Y, Width, Height, Rotation, Name, Image Source or Browser URL.
+Numeric properties support Set, Increase and Decrease. Image Source accepts a plain file path or a URL. It
+needs Meld Studio WebChannel API v2 or newer; on older versions the action logs a warning and does nothing.
+
+Turn on **Create Layer Property States** to get a state per layer property (grouped under
+`Meld Studio | Layer Properties`). It's off by default because it adds 5-6 states per layer: X, Y, Width,
+Height, Rotation, plus Image Source or Browser URL when the layer has one.
 
 # Building
 

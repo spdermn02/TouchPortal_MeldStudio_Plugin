@@ -13,14 +13,23 @@
   - Media Control - toggle/play/pause/restart media layers
   - Replay Control - show/dismiss replay, mute/cue replay audio
   - Widget Control - stopwatch/countdown stream events for widgets
+  - Set Layer Property - set/increase/decrease layer X, Y, Width, Height, Rotation, or set Name,
+    Image Source, Browser URL (needs Meld Studio WebChannel API v2+)
+  - Toggle Virtual Camera
+  - Toggle Stream / Toggle Recording - new Toggle/Start/Stop option
+  - Record Clip - optional clip duration (seconds, 0 = Meld default)
+  - Media Control - new Seek To (seconds) option
+  - Take Screenshot - Horizontal/Vertical option
 - States
   - Per-track Volume (gain), Volume dB and Volume % (fader position), created dynamically per track
   - Per-track Muted and Cued
   - Per-layer Visible, per-effect Enabled, per-media-layer Playing
   - Replay Clip Muted / Cued / Active
   - Next / Previous Scene Name
+  - Per-layer X, Y, Width, Height, Rotation, Image Source, Browser URL (optional, see setting)
 - Settings
   - Enable Debug Logging
+  - Create Layer Property States
 
 ### Fixes
 
@@ -32,6 +41,10 @@
 - Track volume observers are re-registered after a reconnect
 - State updates are only sent when values change
 - Debug logging only appears when Enable Debug Logging is on
+- On/off settings (Enable Debug Logging, Allow Pre-Release of Plugin) never took effect - Touch Portal
+  sends "On"/"Off", not "true"/"false"
+- Translated action text no longer breaks `{$data-id$}` placeholders in some languages
+- Number fields with a min of 0 or decimals disabled now carry those limits into entry.tp
 
 ## v0.0.1-alpha-7
 
