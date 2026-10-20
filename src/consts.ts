@@ -20,6 +20,14 @@ export function setDebugMode(enabled: boolean) {
     DEBUG_MODE = enabled;
 }
 
+// Optional per-layer property states (x/y/size/rotation/source/url) - off by default since
+// they add several states per layer. Set via TouchPortal setting "Create Layer Property States"
+export let LAYER_PROPERTY_STATES: boolean = false;
+
+export function setLayerPropertyStates(enabled: boolean) {
+    LAYER_PROPERTY_STATES = enabled;
+}
+
 // Global state readiness flag - prevents state updates until all modules have created their states
 // This is set to true after a delay in index.ts once all action modules are initialized
 export let STATES_READY: boolean = false;

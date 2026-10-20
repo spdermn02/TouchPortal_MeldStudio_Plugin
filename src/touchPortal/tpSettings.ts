@@ -14,6 +14,13 @@ export default class TPSettings {
                 "body": "Allow the update checker to notify you of pre-release versions of the plugin."
             }
         },
+        "Create Layer Property States": {
+            "type": "switch",
+            "default": "Off",
+            "tooltip": {
+                "body": "Create states for each layer's X, Y, Width, Height, Rotation, Image Source and Browser URL. Adds several states per layer, so it is off by default."
+            }
+        },
         "Enable Debug Logging": {
             "type": "switch",
             "default": "Off",

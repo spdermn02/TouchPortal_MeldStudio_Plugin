@@ -4,7 +4,7 @@ import ProcessWatcher from './processWatcher';
 import TP from 'touchportal-api';
 import TPSettings from './touchPortal/tpSettings';
 import * as C from './consts';
-import { setDebugMode, DEBUG_MODE, setStatesReady, STATE_INIT_DELAY_MS } from './consts';
+import { setDebugMode, DEBUG_MODE, setStatesReady, STATE_INIT_DELAY_MS, LAYER_PROPERTY_STATES, setLayerPropertyStates } from './consts';
 import { stateManager } from './utils/stateManager';
 import { connectorShortIds } from './utils/connectorShortIds';
 import { platform } from 'process';
@@ -194,6 +194,14 @@ TPClient.on("Settings", (data:any) => {
   // Update debug mode based on setting
   const debugEnabled = pluginSettings.getSwitchSetting("Enable Debug Logging");
   setDebugMode(debugEnabled);
+
+  const layerPropertyStates = pluginSettings.getSwitchSetting("Create Layer Property States");
+  if (layerPropertyStates !== LAYER_PROPERTY_STATES) {
+    TPClient.logIt("INFO", `Layer property states ${layerPropertyStates ? 'enabled' : 'disabled'} (setting value: "${pluginSettings.getSetting("Create Layer Property States")}")`);
+    setLayerPropertyStates(layerPropertyStates);
+    // Create or remove the states now rather than waiting for the next session change
+    actions['LayerProperty']?.refreshPropertyStates();
+  }
 
   // Settings arrive after connecting to TP (and again on every change), so the
   // Meld connection starts here once the configured IP is known
