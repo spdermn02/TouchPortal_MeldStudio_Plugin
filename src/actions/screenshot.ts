@@ -5,10 +5,22 @@ export default class Screenshot extends TpAction {
     tpAction: any = {
         id: C.Str.IdPrefix + 'screenshot',
         name: "Take Screenshot",
-        lineFormat: "Take Screenshot",
-        enabled: true
+        lineFormat: "Take {$tp_meld_studio_screenshot-orientation$} Screenshot",
+        enabled: true,
+        data: {
+            'orientation': {
+                id: C.Str.IdPrefix + 'screenshot-orientation',
+                type: 'choice',
+                default: 'Horizontal',
+                valueChoices: [
+                    'Horizontal',
+                    'Vertical'
+                ]
+            }
+        }
     }
-    meldId: string = "co.meldstudio.events.screenshot";
+    // Deprecated sendEvent id, used only when sendCommand isn't available (older Meld Studio)
+    legacyMeldId: string = "co.meldstudio.events.screenshot";
     $MS: any = null;
     tp: any = null;
     constructor($MS: any, TPClient: any) {
@@ -19,13 +31,18 @@ export default class Screenshot extends TpAction {
     }
     initialize() {
         this.tp.on('Action', (message: any) => {
-            this.tp.logIt('INFO', 'Action', message);
             if (message.actionId == this.getTpActionId()) {
-                this.handleAction();
+                this.handleAction(message);
             }
         });
     }
-    handleAction() {
-        this.$MS.meld?.sendEvent?.(this.meldId);
+    handleAction(message: any) {
+        // Buttons created before the orientation option existed have no data - default to horizontal
+        const vertical = message.data?.[0]?.value === 'Vertical';
+        if (this.$MS?.meld?.sendCommand) {
+            this.$MS.meld.sendCommand(vertical ? 'meld.screenshot.vertical' : 'meld.screenshot');
+        } else if (!vertical) {
+            this.$MS?.meld?.sendEvent?.(this.legacyMeldId);
+        }
     }
 }

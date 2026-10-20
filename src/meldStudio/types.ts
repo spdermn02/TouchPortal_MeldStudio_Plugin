@@ -52,6 +52,8 @@ export type MeldDefaultSignal = {
 }
 
 export type MeldStudio = {
+    // API version - undefined means version 1. setProperty requires version 2
+    version?:number,
     isRecording:boolean,
     isStreaming:boolean,
     session?:MeldSession,
@@ -90,6 +92,7 @@ export type MeldStudio = {
     callFunctionWithArgs?:(layerId:string, command:string, args:any[]) => void,
     // Command sending
     sendCommand?:(command:string) => void,
+    sendCommandWithArgs?:(command:string, args:any[]) => void,
     // Stream events for widgets
     sendStreamEvent?:(type:string, data:any) => void
 }

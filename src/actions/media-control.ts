@@ -10,7 +10,8 @@ export default class MediaControl extends TpAction {
         name: "Media Control",
         lineFormat: ["For Scene {$tp_meld_studio_media-scene-list$}",
             "and Layer {$tp_meld_studio_media-layer-list$}",
-            "then {$tp_meld_studio_media-action$}"],
+            "then {$tp_meld_studio_media-action$}",
+            "Seek To {$tp_meld_studio_media-seek-seconds$} seconds"],
         holdable: false,
         enabled: true,
         data: {
@@ -40,8 +41,16 @@ export default class MediaControl extends TpAction {
                     'Toggle',
                     'Play',
                     'Pause',
-                    'Restart'
+                    'Restart',
+                    'Seek To'
                 ]
+            },
+            'mediaSeekSeconds': {
+                id: C.Str.IdPrefix + 'media-seek-seconds',
+                type: 'number',
+                default: 0,
+                minValue: 0,
+                allowDecimals: true
             }
         }
     }
@@ -117,6 +126,12 @@ export default class MediaControl extends TpAction {
             case 'restart':
                 this.restartMedia(layerId);
                 break;
+            case 'seek to': {
+                // Seek position only applies to Seek To; older buttons have no 4th data item
+                const seconds = parseFloat(message.data[3]?.value);
+                this.seekMedia(layerId, Number.isFinite(seconds) ? Math.max(0, seconds) : 0);
+                break;
+            }
         }
     }
     togglePlayPause(layerId: string) {
@@ -153,6 +168,12 @@ export default class MediaControl extends TpAction {
                 this.mediaPlayingStates[layerId] = true;
                 this.updateMediaPlayingState(layerId, true);
             }
+        }
+    }
+    seekMedia(layerId: string, seconds: number) {
+        if (this.$MS?.meld?.callFunctionWithArgs) {
+            if (DEBUG_MODE) this.tp.logIt("DEBUG", `media-control: Seeking layer ${layerId} to ${seconds}s`);
+            this.$MS.meld.callFunctionWithArgs(layerId, 'seekTo', [seconds]);
         }
     }
     createMediaState(layerId: string, layerName: string) {
