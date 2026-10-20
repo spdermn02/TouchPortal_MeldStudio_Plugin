@@ -29,12 +29,27 @@ const TPClient = {
   stateUpdate: (text, value) => {},
 };
 
-function translation(text, to) {
+const TOKEN_REGEX = /\{\$.+?\$\}/g;
+
+async function translation(text, to) {
   if (text === undefined || text === null || text === "") {
     return undefined;
   }
   if (debug) console.debug("Translating " + text + " to " + to);
-  let result = translate(text, to);
+  // Mask {$data-id$} placeholders so the translator can't mangle them (it was translating
+  // words inside ids, e.g. seek-seconds -> seek-segundos), then restore them afterwards
+  const tokens = text.match(TOKEN_REGEX) ?? [];
+  const masked = tokens.reduce((str, token, i) => str.replace(token, `[[${i}]]`), text);
+  let result = await translate(masked, to);
+  tokens.forEach((token, i) => {
+    result = result.replace(new RegExp(`\\[\\[\\s*${i}\\s*\\]\\]`), token);
+  });
+  // Fall back to English if any placeholder didn't survive - a broken id breaks the action in TP
+  const restored = (result.match(TOKEN_REGEX) ?? []).sort().join();
+  if (restored !== [...tokens].sort().join()) {
+    console.warn(`WARN: ${to} translation lost placeholders, using English: "${text}" -> "${result}"`);
+    return text;
+  }
   return result;
 }
 
@@ -135,13 +150,14 @@ const buildActionData = (action) => {
     if (dataElement?.extensions) {
       tpData.extensions = dataElement.extensions;
     }
-    if (dataElement?.allowDecimals) {
+    // Explicit undefined checks - minValue 0 and allowDecimals false are meaningful values
+    if (dataElement?.allowDecimals !== undefined) {
       tpData.allowDecimals = dataElement.allowDecimals;
     }
-    if (dataElement?.minValue) {
+    if (dataElement?.minValue !== undefined) {
       tpData.minValue = dataElement.minValue;
     }
-    if (dataElement?.maxValue) {
+    if (dataElement?.maxValue !== undefined) {
       tpData.maxValue = dataElement.maxValue;
     }
 
