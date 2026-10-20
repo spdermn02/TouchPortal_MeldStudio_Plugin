@@ -107,8 +107,10 @@ npm run build-entry          # compile TypeScript and generate base/entry.tp
 npm run build-windows-x64    # or build-mac-arm64, build-mac-x64, build-windows-arm64
 ```
 
-Packages are written to `Installers/` as `.tpp` files. `build-entry` machine-translates action text, so it needs
-network access. Set `DEBUG_MODE=true` (or turn on the **Enable Debug Logging** setting) for verbose logs.
+Packages are written to `Installers/` as `.tpp` files. `build-entry` takes action text translations from
+`builders/translations.json`. Any new or changed text gets machine-translated and added to that file, which needs
+network access, so commit the updated file with your change. If a translation fails, the build uses English for that
+text. Set `DEBUG_MODE=true` (or turn on the **Enable Debug Logging** setting) for verbose logs.
 
 Release builds run in GitHub Actions when a release is published.
 

@@ -31,10 +31,36 @@ const TPClient = {
 
 const TOKEN_REGEX = /\{\$.+?\$\}/g;
 
+// Translations are cached in a committed file so CI builds don't hit the translate service
+// (Google rate-limits GitHub runners). Only strings missing from the cache go to the network
+const CACHE_PATH = path.join(__dirname, "translations.json");
+const cache = fs.existsSync(CACHE_PATH) ? JSON.parse(fs.readFileSync(CACHE_PATH, "utf8")) : {};
+const usedCache = {}; // entries used this build - written back so removed strings get pruned
+
 async function translation(text, to) {
   if (text === undefined || text === null || text === "") {
     return undefined;
   }
+  let result = cache[text]?.[to];
+  if (result === undefined) {
+    try {
+      result = await fetchTranslation(text, to);
+    } catch (error) {
+      // Don't cache failures, so the next build with network access retries them
+      console.warn(`WARN: ${to} translation failed, using English: "${text}" (${error.message})`);
+      return text;
+    }
+  }
+  usedCache[text] = { ...usedCache[text], [to]: result };
+  return result;
+}
+
+const writeTranslationCache = () => {
+  const sorted = Object.fromEntries(Object.keys(usedCache).sort().map((text) => [text, usedCache[text]]));
+  fs.writeFileSync(CACHE_PATH, JSON.stringify(sorted, null, 2) + "\n");
+};
+
+async function fetchTranslation(text, to) {
   if (debug) console.debug("Translating " + text + " to " + to);
   // Mask {$data-id$} placeholders so the translator can't mangle them (it was translating
   // words inside ids, e.g. seek-seconds -> seek-segundos), then restore them afterwards
@@ -338,6 +364,7 @@ const buildEntry = async () => {
 
   //write out a file to ../base/entry.tp containing pretty printed json of entry object
   fs.writeFileSync(path.join(__dirname, "../base/entry.tp"), JSON.stringify(entry, null, 2));
+  writeTranslationCache();
 };
 
 buildEntry();

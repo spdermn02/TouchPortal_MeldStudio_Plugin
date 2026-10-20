@@ -45,6 +45,8 @@
   sends "On"/"Off", not "true"/"false"
 - Translated action text no longer breaks `{$data-id$}` placeholders in some languages
 - Number fields with a min of 0 or decimals disabled now carry those limits into entry.tp
+- Release builds no longer fail when the translate service rate-limits GitHub runners - translations
+  are cached in builders/translations.json
 
 ## v0.0.1-alpha-7
 
