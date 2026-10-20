@@ -6,6 +6,8 @@ Plugin for Touch Portal to control Meld Studio
 - [TO DO](#to-do)
 - [Change Log](#change-log)
 - [Documentation](#documentation)
+- [Remote Meld Studio](#remote-meld-studio)
+- [Building](#building)
 - [Development Dependencies](#development-dependencies)
 - [Versioning](#versioning)
 - [Authors](#authors)
@@ -30,13 +32,20 @@ Meld Studio is a newer live streaming platform, so this plugin will allow "remot
 - [X] Set Staged Scene Action 
 - [X] Staged Scene State Values 
 - [X] Show Staged Scene 
-- [ ] Volume Stepper Action
-- [ ] Volume Slider Slider
+- [X] Volume Stepper Action
+- [X] Volume Slider
+- [X] Transition Stepper Action
+- [X] Record Clip Action
+- [X] Media Control Action
+- [X] Replay Control Action
+- [X] Widget Control Action
 
-- [ ] Effect Visible/Hidden State Values
-- [ ] Layer Visible/Hidden State Values
-- [ ] Track Cued/Un-cued State Values
-- [ ] Track Un-muted/Muted State Values
+- [X] Effect Visible/Hidden State Values
+- [X] Layer Visible/Hidden State Values
+- [X] Track Cued/Un-cued State Values
+- [X] Track Un-muted/Muted State Values
+- [X] Track Volume State Values
+- [X] Remote Meld Studio connection (non-local Websocket IP)
 
 # Change Log
 
@@ -45,6 +54,29 @@ See [CHANGELOG.md](CHANGELOG.md)
 # Documentation
 
 See the **[Full Documentation](https://github.com/spdermn02/TouchPortal_MeldStudio_Plugin/wiki/Documentation)** in the wiki.
+
+# Remote Meld Studio
+
+Set the **Meld Studio Websocket IP** setting to the machine running Meld Studio. If the IP is local, the plugin
+waits for the Meld Studio process to start. If it's remote, the plugin connects directly and retries every 10
+seconds until Meld Studio is reachable. Changing the setting reconnects immediately.
+
+Meld Studio's websocket (port `13376`) is unencrypted and unauthenticated, so only use remote mode on a trusted network.
+
+# Building
+
+Requires Node.js 20.
+
+```sh
+npm install
+npm run build-entry          # compile TypeScript and generate base/entry.tp
+npm run build-windows-x64    # or build-mac-arm64, build-mac-x64, build-windows-arm64
+```
+
+Packages are written to `Installers/` as `.tpp` files. `build-entry` machine-translates action text, so it needs
+network access. Set `DEBUG_MODE=true` (or turn on the **Enable Debug Logging** setting) for verbose logs.
+
+Release builds run in GitHub Actions when a release is published.
 
 # Development Dependencies
 (These are included in the plugin's official releases.)
