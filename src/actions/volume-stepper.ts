@@ -2,8 +2,9 @@ import * as C from '../consts';
 import { DEBUG_MODE, STATE_INIT_DELAY_MS } from '../consts';
 import TpAction from '../touchPortal/tpAction';
 import { utils } from '../meldStudio/utils';
-import { toDb, toGain, clampGain } from '../utils/audio';
+import { toDb, toGain, clampGain, gainToFader, faderToGain } from '../utils/audio';
 import { stateManager } from '../utils/stateManager';
+import { connectorShortIds } from '../utils/connectorShortIds';
 
 export default class VolumeStepper extends TpAction {
     tpAction: any = {
@@ -151,9 +152,10 @@ export default class VolumeStepper extends TpAction {
             const newDb = direction === 'Up' ? currentDb + dBStep : currentDb - dBStep;
             newGain = toGain(newDb);
         } else {
-            // Percentage step
-            const percentStep = parseInt(stepSize.replace('%', ''), 10) / 100;
-            newGain = direction === 'Up' ? currentGain + percentStep : currentGain - percentStep;
+            // Percentage step moves the fader position (dB taper), matching the slider
+            const percentStep = parseInt(stepSize.replace('%', ''), 10);
+            const currentPos = gainToFader(currentGain);
+            newGain = faderToGain(direction === 'Up' ? currentPos + percentStep : currentPos - percentStep);
         }
 
         newGain = clampGain(newGain);
@@ -166,10 +168,15 @@ export default class VolumeStepper extends TpAction {
             return;
         }
 
-        // Connector value is 0-100, convert to 0.0-1.0 gain
-        let newVol = parseInt(message.value, 10);
-        newVol = Math.max(0, Math.min(100, newVol));
-        const newGain = newVol / 100;
+        // Connector value is a 0-100 fader position on a dB taper. Sliders send an integer
+        // `value`; dials send `valueDecimal` in whatever range the user configured (expected 0-100)
+        const rawValue = parseFloat(message.valueDecimal ?? message.value);
+        if (!Number.isFinite(rawValue)) {
+            if (DEBUG_MODE) this.tp.logIt("DEBUG", `Volume stepper: Ignoring non-numeric connector value ${JSON.stringify(message)}`);
+            return;
+        }
+        const newVol = Math.max(0, Math.min(100, rawValue));
+        const newGain = faderToGain(newVol);
 
         this.$MS.meld.setGain(track.value, newGain);
     }
@@ -201,7 +208,7 @@ export default class VolumeStepper extends TpAction {
         const gainStr = gain.toFixed(3);
         const dbValue = toDb(gain);
         const dbStr = dbValue === -Infinity ? '-inf' : dbValue.toFixed(1);
-        const percentStr = Math.round(gain * 100).toString();
+        const percentStr = Math.round(gainToFader(gain)).toString();
 
         const states = [
             { id: C.Str.IdPrefix + 'track-volume-' + trackId, value: gainStr },
@@ -212,11 +219,25 @@ export default class VolumeStepper extends TpAction {
         // Use stateManager to only send changed values
         stateManager.updateStateMany(states);
     }
+    getConnectorIdPrefix() {
+        return `pc_${C.Str.PluginId}_${this.tpConnector.id}`;
+    }
     updateConnectorPosition(trackId: string, gain: number) {
         // Update the connector slider position when gain changes externally
-        const connectorValue = Math.round(gain * 100);
-        if (this.tp.connectorUpdate) {
-            this.tp.connectorUpdate(this.tpConnector.id, connectorValue, { trackId });
+        // TP matches slider instances by connector id + selected data, so the track choice
+        // value (same "name - id" key used in trackIdx) must be part of the id
+        const trackKey = Object.keys(this.trackIdx).find((key) => this.trackIdx[key].value === trackId);
+        if (!trackKey || !this.tp.connectorUpdate) {
+            return;
+        }
+        const connectorValue = Math.round(gainToFader(gain));
+        const dataId = this.tpConnector.data.track.id;
+        const shortId = connectorShortIds.get(`${this.getConnectorIdPrefix()}|${dataId}=${trackKey}`);
+        if (DEBUG_MODE) this.tp.logIt("DEBUG", `Volume stepper: Connector update ${trackKey} -> ${connectorValue}${shortId ? ' (shortId)' : ''}`);
+        if (shortId) {
+            this.tp.connectorUpdate(shortId, connectorValue, null, true);
+        } else {
+            this.tp.connectorUpdate(this.tpConnector.id, connectorValue, [{ id: dataId, value: trackKey }]);
         }
     }
     buildTrackIdx() {
@@ -342,7 +363,7 @@ export default class VolumeStepper extends TpAction {
             const gainStr = gain.toFixed(3);
             const dbValue = toDb(gain);
             const dbStr = dbValue === -Infinity ? '-inf' : dbValue.toFixed(1);
-            const percentStr = Math.round(gain * 100).toString();
+            const percentStr = Math.round(gainToFader(gain)).toString();
 
             states.push({ id: C.Str.IdPrefix + 'track-volume-' + trackId, value: gainStr });
             states.push({ id: C.Str.IdPrefix + 'track-volume-db-' + trackId, value: dbStr });

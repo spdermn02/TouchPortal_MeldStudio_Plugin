@@ -6,6 +6,7 @@ import TPSettings from './touchPortal/tpSettings';
 import * as C from './consts';
 import { setDebugMode, DEBUG_MODE, setStatesReady, STATE_INIT_DELAY_MS } from './consts';
 import { stateManager } from './utils/stateManager';
+import { connectorShortIds } from './utils/connectorShortIds';
 import { platform } from 'process';
 import path from 'path';
 import fs from 'fs';
@@ -212,6 +213,12 @@ TPClient.on("Settings", (data:any) => {
   const includePrerelease = pluginSettings.getSetting("Allow Pre-Release of Plugin").toLowerCase() === "true";
   TPClient.checkForUpdate(C.Str.GitHubUser, C.Str.GitHubRepo, includePrerelease)
 
+});
+
+// TP sends shortIds for connector instances at connect, before Meld/action modules are ready
+TPClient.on("ConnectorShortIdNotification", (message: any) => {
+  connectorShortIds.set(message.connectorId, message.shortId);
+  if (DEBUG_MODE) TPClient.logIt("DEBUG", `Connector shortId ${message.shortId} for ${message.connectorId}`);
 });
 
 // Handle the Info event - TouchPortal is ready

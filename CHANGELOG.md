@@ -5,15 +5,16 @@
 ### New Features
 
 - Actions
-  - Track Volume - step a track up/down by 1/3/6 dB or 1/5/10 %
-  - Track Volume Slider (connector)
+  - Track Volume - step a track up/down by 1/3/6 dB or 1/5/10 % of fader travel
+  - Track Volume Slider / Dial (connector) - two-way, follows volume changes made in Meld Studio,
+    dB-tapered like a mixer fader (-60 dB to 0 dB)
   - Transition Stepper - stage next/previous scene, show staged scene
   - Record Clip
   - Media Control - toggle/play/pause/restart media layers
   - Replay Control - show/dismiss replay, mute/cue replay audio
   - Widget Control - stopwatch/countdown stream events for widgets
 - States
-  - Per-track Volume, Volume dB and Volume % (created dynamically per track)
+  - Per-track Volume (gain), Volume dB and Volume % (fader position), created dynamically per track
   - Per-track Muted and Cued
   - Per-layer Visible, per-effect Enabled, per-media-layer Playing
   - Replay Clip Muted / Cued / Active

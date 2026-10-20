@@ -7,6 +7,7 @@ Plugin for Touch Portal to control Meld Studio
 - [Change Log](#change-log)
 - [Documentation](#documentation)
 - [Remote Meld Studio](#remote-meld-studio)
+- [Volume Slider / Dial](#volume-slider--dial)
 - [Building](#building)
 - [Development Dependencies](#development-dependencies)
 - [Versioning](#versioning)
@@ -62,6 +63,22 @@ waits for the Meld Studio process to start. If it's remote, the plugin connects 
 seconds until Meld Studio is reachable. Changing the setting reconnects immediately.
 
 Meld Studio's websocket (port `13376`) is unencrypted and unauthenticated, so only use remote mode on a trusted network.
+
+# Volume Slider / Dial
+
+The **Track Volume Slider** connector works on sliders and dials, and follows volume changes made in Meld Studio.
+
+| Position | Volume |
+|---|---|
+| 100 | 0 dB |
+| 90 | -6 dB |
+| 50 | -30 dB |
+| 1 | -59.4 dB |
+| 0 | Silent |
+
+Position maps linearly to dB from -60 dB to 0 dB, so it moves like a mixer fader. The `Track Volume %` state and
+the `%` stepper sizes use the same fader position. **Set dials to a 0-100 range** - Touch Portal doesn't tell the
+plugin a dial's configured range, and values outside 0-100 are clamped.
 
 # Building
 
