@@ -6,7 +6,7 @@ on:
     types: [published]
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-15-intel # macos-13 was retired; Intel jobs queue forever on retired labels
     strategy:
       matrix:
         node-version: [20.x]
