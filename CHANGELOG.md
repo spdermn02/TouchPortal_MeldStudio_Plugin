@@ -17,7 +17,7 @@
     Image Source, Browser URL (needs Meld Studio WebChannel API v2+)
   - Toggle Virtual Camera
   - Toggle Stream / Toggle Recording - new Toggle/Start/Stop option
-  - Record Clip - optional clip duration (seconds, 0 = Meld default)
+  - Record Clip - optional clip duration (seconds, 0 = maximum clip length)
   - Media Control - new Seek To (seconds) option
   - Take Screenshot - Horizontal/Vertical option
 - States
