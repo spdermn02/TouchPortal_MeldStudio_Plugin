@@ -128,3 +128,12 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Touch Portal Plugin Dirs
+Installers/
+
+# Built Files now
+base/entry.tp
+base/Windows
+base/Linux
+base/MacOS

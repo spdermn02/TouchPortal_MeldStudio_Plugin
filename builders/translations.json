@@ -1,0 +1,472 @@
+{
+  "Effect Visibility": {
+    "es": "Visibilidad del efecto",
+    "fr": "Visibilité des effets",
+    "pt": "Visibilidade do efeito",
+    "tr": "Efekt Görünürlüğü",
+    "fi": "Tehosteen näkyvyys",
+    "nl": "Effectzichtbaarheid",
+    "de": "Effektsichtbarkeit",
+    "it": "Visibilità degli effetti"
+  },
+  "For Scene {$tp_meld_studio_effect-scene-list$}": {
+    "es": "Para escena {$tp_meld_studio_effect-scene-list$}",
+    "fr": "Pour la scène {$tp_meld_studio_effect-scene-list$}",
+    "pt": "Para cena {$tp_meld_studio_effect-scene-list$}",
+    "tr": "Sahne için {$tp_meld_studio_effect-scene-list$}",
+    "fi": "Kohtaukselle {$tp_meld_studio_effect-scene-list$}",
+    "nl": "Voor scène {$tp_meld_studio_effect-scene-list$}",
+    "de": "Für Szene {$tp_meld_studio_effect-scene-list$}",
+    "it": "Per la scena {$tp_meld_studio_effect-scene-list$}"
+  },
+  "For Scene {$tp_meld_studio_layer-scene-list$}": {
+    "es": "Para escena {$tp_meld_studio_layer-scene-list$}",
+    "fr": "Pour la scène {$tp_meld_studio_layer-scene-list$}",
+    "pt": "Para cena {$tp_meld_studio_layer-scene-list$}",
+    "tr": "Sahne için {$tp_meld_studio_layer-scene-list$}",
+    "fi": "Kohtaukselle {$tp_meld_studio_layer-scene-list$}",
+    "nl": "Voor scène {$tp_meld_studio_layer-scene-list$}",
+    "de": "Für Szene {$tp_meld_studio_layer-scene-list$}",
+    "it": "Per la scena {$tp_meld_studio_layer-scene-list$}"
+  },
+  "For Scene {$tp_meld_studio_layerprop-scene-list$}": {
+    "es": "Para escena {$tp_meld_studio_layerprop-scene-list$}",
+    "fr": "Pour la scène {$tp_meld_studio_layerprop-scene-list$}",
+    "pt": "Para cena {$tp_meld_studio_layerprop-scene-list$}",
+    "tr": "Sahne için {$tp_meld_studio_layerprop-scene-list$}",
+    "fi": "Kohtaukselle {$tp_meld_studio_layerprop-scene-list$}",
+    "nl": "Voor scène {$tp_meld_studio_layerprop-scene-list$}",
+    "de": "Für Szene {$tp_meld_studio_layerprop-scene-list$}",
+    "it": "Per la scena {$tp_meld_studio_layerprop-scene-list$}"
+  },
+  "For Scene {$tp_meld_studio_media-scene-list$}": {
+    "es": "Para escena {$tp_meld_studio_media-scene-list$}",
+    "fr": "Pour la scène {$tp_meld_studio_media-scene-list$}",
+    "pt": "Para cena {$tp_meld_studio_media-scene-list$}",
+    "tr": "Sahne için {$tp_meld_studio_media-scene-list$}",
+    "fi": "Kohtaukselle {$tp_meld_studio_media-scene-list$}",
+    "nl": "Voor scène {$tp_meld_studio_media-scene-list$}",
+    "de": "Für Szene {$tp_meld_studio_media-scene-list$}",
+    "it": "Per la scena {$tp_meld_studio_media-scene-list$}"
+  },
+  "For Track {$tp_meld_studio_track-list$}": {
+    "es": "Para pista {$tp_meld_studio_track-list$}",
+    "fr": "Pour la piste {$tp_meld_studio_track-list$}",
+    "pt": "Para faixa {$tp_meld_studio_track-list$}",
+    "tr": "Parça için {$tp_meld_studio_track-list$}",
+    "fi": "Kappale {$tp_meld_studio_track-list$}",
+    "nl": "Voor spoor {$tp_meld_studio_track-list$}",
+    "de": "Für Spur {$tp_meld_studio_track-list$}",
+    "it": "Per la traccia {$tp_meld_studio_track-list$}"
+  },
+  "Go Live": {
+    "es": "Ir en vivo",
+    "fr": "Passez en direct",
+    "pt": "Vá ao vivo",
+    "tr": "Canlı Yayına Geçin",
+    "fi": "Siirry live-lähetykseen",
+    "nl": "Ga live",
+    "de": "Gehen Sie live",
+    "it": "Vai in diretta"
+  },
+  "Layer Visibility": {
+    "es": "Visibilidad de capa",
+    "fr": "Visibilité des calques",
+    "pt": "Visibilidade da camada",
+    "tr": "Katman Görünürlüğü",
+    "fi": "Tason näkyvyys",
+    "nl": "Zichtbaarheid van lagen",
+    "de": "Sichtbarkeit der Ebene",
+    "it": "Visibilità dei livelli"
+  },
+  "Media Control": {
+    "es": "Control de medios",
+    "fr": "Contrôle des médias",
+    "pt": "Controle de mídia",
+    "tr": "Medya Kontrolü",
+    "fi": "Median hallinta",
+    "nl": "Mediacontrole",
+    "de": "Medienkontrolle",
+    "it": "Controllo dei media"
+  },
+  "Record": {
+    "es": "Registro",
+    "fr": "Enregistrer",
+    "pt": "Registro",
+    "tr": "Kayıt",
+    "fi": "Tallentaa",
+    "nl": "Dossier",
+    "de": "Aufzeichnen",
+    "it": "Documentazione"
+  },
+  "Record Clip": {
+    "es": "Grabar vídeo",
+    "fr": "Enregistrer un extrait",
+    "pt": "Gravar clipe",
+    "tr": "Klip Kaydet",
+    "fi": "Nauhoitusleike",
+    "nl": "Opnameclip",
+    "de": "Clip aufnehmen",
+    "it": "Registra clip"
+  },
+  "Record Clip of {$tp_meld_studio_clip-duration$} seconds (0 = max)": {
+    "es": "Grabar clip de {$tp_meld_studio_clip-duration$} segundos (0 = máximo)",
+    "fr": "Enregistrer un clip de {$tp_meld_studio_clip-duration$} secondes (0 = max)",
+    "pt": "Gravar clipe de {$tp_meld_studio_clip-duration$} segundos (0 = máx.)",
+    "tr": "{$tp_meld_studio_clip-duration$} saniyelik Klip Kaydı (0 = maksimum)",
+    "fi": "Tallenna {$tp_meld_studio_clip-duration$} sekuntia (0 = max)",
+    "nl": "Opnameclip van {$tp_meld_studio_clip-duration$} seconden (0 = max)",
+    "de": "Clip von {$tp_meld_studio_clip-duration$} Sekunden aufzeichnen (0 = max.)",
+    "it": "Registra clip di {$tp_meld_studio_clip-duration$} secondi (0 = max)"
+  },
+  "Replay Control": {
+    "es": "Control de repetición",
+    "fr": "Contrôle de relecture",
+    "pt": "Controle de repetição",
+    "tr": "Tekrar Oynatma Kontrolü",
+    "fi": "Toiston ohjaus",
+    "nl": "Controle over opnieuw afspelen",
+    "de": "Wiederholungskontrolle",
+    "it": "Controllo della riproduzione"
+  },
+  "Replay: {$tp_meld_studio_replay-action$}": {
+    "es": "Repetición: {$tp_meld_studio_replay-action$}",
+    "fr": "Reprise : {$tp_meld_studio_replay-action$}",
+    "pt": "Repetição: {$tp_meld_studio_replay-action$}",
+    "tr": "Tekrar oynat: {$tp_meld_studio_replay-action$}",
+    "fi": "Toista: {$tp_meld_studio_replay-action$}",
+    "nl": "Herhaling: {$tp_meld_studio_replay-action$}",
+    "de": "Wiederholung: {$tp_meld_studio_replay-action$}",
+    "it": "Riproduzione: {$tp_meld_studio_replay-action$}"
+  },
+  "Scene Navigation: {$tp_meld_studio_transition-action$}": {
+    "es": "Navegación de escena: {$tp_meld_studio_transition-action$}",
+    "fr": "Navigation dans la scène : {$tp_meld_studio_transition-action$}",
+    "pt": "Navegação de cena: {$tp_meld_studio_transition-action$}",
+    "tr": "Sahne Gezinme: {$tp_meld_studio_transition-action$}",
+    "fi": "Kohtauksen navigointi: {$tp_meld_studio_transition-action$}",
+    "nl": "Scènenavigatie: {$tp_meld_studio_transition-action$}",
+    "de": "Szenennavigation: {$tp_meld_studio_transition-action$}",
+    "it": "Navigazione scene: {$tp_meld_studio_transition-action$}"
+  },
+  "Seek To {$tp_meld_studio_media-seek-seconds$} seconds": {
+    "es": "Buscar hasta {$tp_meld_studio_media-seek-seconds$} segundos",
+    "fr": "Rechercher jusqu'à {$tp_meld_studio_media-seek-seconds$} secondes",
+    "pt": "Procure por {$tp_meld_studio_media-seek-seconds$} segundos",
+    "tr": "{$tp_meld_studio_media-seek-seconds$} saniyeye kadar ara",
+    "fi": "Haku {$tp_meld_studio_media-seek-seconds$} sekuntiin",
+    "nl": "Zoeken naar {$tp_meld_studio_media-seek-seconds$} seconden",
+    "de": "Suche bis {$tp_meld_studio_media-seek-seconds$} Sekunden",
+    "it": "Cerca a {$tp_meld_studio_media-seek-seconds$} secondi"
+  },
+  "Set Layer Property": {
+    "es": "Establecer propiedad de capa",
+    "fr": "Définir la propriété du calque",
+    "pt": "Definir propriedade da camada",
+    "tr": "Katman Özelliğini Ayarla",
+    "fi": "Aseta kerroksen ominaisuus",
+    "nl": "Laageigenschap instellen",
+    "de": "Legen Sie die Layereigenschaft fest",
+    "it": "Imposta la proprietà del livello"
+  },
+  "Show Scene": {
+    "es": "Mostrar escena",
+    "fr": "Afficher la scène",
+    "pt": "Mostrar cena",
+    "tr": "Sahneyi Göster",
+    "fi": "Näytä kohtaus",
+    "nl": "Scène tonen",
+    "de": "Szene anzeigen",
+    "it": "Mostra scena"
+  },
+  "Show Scene {$tp_meld_studio_scene-list$}": {
+    "es": "Mostrar escena {$tp_meld_studio_scene-list$}",
+    "fr": "Afficher la scène {$tp_meld_studio_scene-list$}",
+    "pt": "Mostrar cena {$tp_meld_studio_scene-list$}",
+    "tr": "Sahneyi Göster {$tp_meld_studio_scene-list$}",
+    "fi": "Näytä kohtaus {$tp_meld_studio_scene-list$}",
+    "nl": "Scène tonen {$tp_meld_studio_scene-list$}",
+    "de": "Szene anzeigen {$tp_meld_studio_scene-list$}",
+    "it": "Mostra scena {$tp_meld_studio_scene-list$}"
+  },
+  "Show Staged Scene": {
+    "es": "Mostrar escena escenificada",
+    "fr": "Afficher la scène mise en scène",
+    "pt": "Mostrar cena encenada",
+    "tr": "Aşamalı Sahneyi Göster",
+    "fi": "Näytä lavastettu kohtaus",
+    "nl": "Toon geënsceneerde scène",
+    "de": "Inszenierte Szene anzeigen",
+    "it": "Mostra scena in scena"
+  },
+  "Stage Scene": {
+    "es": "Escena escénica",
+    "fr": "Scène de scène",
+    "pt": "Cena de palco",
+    "tr": "Sahne Sahnesi",
+    "fi": "Stage kohtaus",
+    "nl": "Toneelscène",
+    "de": "Bühnenszene",
+    "it": "Scena scenica"
+  },
+  "Stage Scene {$tp_meld_studio_stage-scene-list$}": {
+    "es": "Escena del escenario {$tp_meld_studio_stage-scene-list$}",
+    "fr": "Scène de scène {$tp_meld_studio_stage-scene-list$}",
+    "pt": "Cena de palco {$tp_meld_studio_stage-scene-list$}",
+    "tr": "Sahne Sahnesi {$tp_meld_studio_stage-scene-list$}",
+    "fi": "Lavakohtaus {$tp_meld_studio_stage-scene-list$}",
+    "nl": "Podiumscène {$tp_meld_studio_stage-scene-list$}",
+    "de": "Bühnenszene {$tp_meld_studio_stage-scene-list$}",
+    "it": "Scena scenica {$tp_meld_studio_stage-scene-list$}"
+  },
+  "Take Screenshot": {
+    "es": "Tomar captura de pantalla",
+    "fr": "Prendre une capture d'écran",
+    "pt": "Tirar captura de tela",
+    "tr": "Ekran Görüntüsü Al",
+    "fi": "Ota Screenshot",
+    "nl": "Maak een screenshot",
+    "de": "Machen Sie einen Screenshot",
+    "it": "Acquisisci schermata"
+  },
+  "Take {$tp_meld_studio_screenshot-orientation$} Screenshot": {
+    "es": "Tome {$tp_meld_studio_screenshot-orientation$} captura de pantalla",
+    "fr": "Prendre {$tp_meld_studio_screenshot-orientation$} Capture d'écran",
+    "pt": "Faça {$tp_meld_studio_screenshot-orientation$} captura de tela",
+    "tr": "{$tp_meld_studio_screenshot-orientation$} Ekran Görüntüsü Alın",
+    "fi": "Ota {$tp_meld_studio_screenshot-orientation$} kuvakaappaus",
+    "nl": "Maak een schermafbeelding van {$tp_meld_studio_screenshot-orientation$}.",
+    "de": "Machen Sie einen {$tp_meld_studio_screenshot-orientation$} Screenshot",
+    "it": "Scatta {$tp_meld_studio_screenshot-orientation$} screenshot"
+  },
+  "Toggle Virtual Camera": {
+    "es": "Alternar cámara virtual",
+    "fr": "Basculer la caméra virtuelle",
+    "pt": "Alternar câmera virtual",
+    "tr": "Sanal Kamerayı Değiştir",
+    "fi": "Virtuaalikamera päälle/pois",
+    "nl": "Schakel virtuele camera in",
+    "de": "Virtuelle Kamera umschalten",
+    "it": "Attiva/disattiva la fotocamera virtuale"
+  },
+  "Track Monitor": {
+    "es": "Monitor de seguimiento",
+    "fr": "Moniteur de piste",
+    "pt": "Monitor de trilha",
+    "tr": "Takip Monitörü",
+    "fi": "Track Monitor",
+    "nl": "Volgmonitor",
+    "de": "Track-Monitor",
+    "it": "Monitoraggio della traccia"
+  },
+  "Track Mute": {
+    "es": "Silenciar pista",
+    "fr": "Piste muette",
+    "pt": "Rastrear mudo",
+    "tr": "Parçayı Sessize Alma",
+    "fi": "Kappaleen mykistys",
+    "nl": "Volg dempen",
+    "de": "Spur stumm schalten",
+    "it": "Disattiva traccia"
+  },
+  "Track Volume": {
+    "es": "Volumen de pista",
+    "fr": "Volume de la piste",
+    "pt": "Volume da trilha",
+    "tr": "Parça Hacmi",
+    "fi": "Raidan äänenvoimakkuus",
+    "nl": "Trackvolume",
+    "de": "Verfolgen Sie die Lautstärke",
+    "it": "Traccia volume"
+  },
+  "Transition Stepper": {
+    "es": "Paso a paso de transición",
+    "fr": "Étape de transition",
+    "pt": "Passo de transição",
+    "tr": "Geçiş Stepri",
+    "fi": "Siirtymä Stepperi",
+    "nl": "Overgangsstapper",
+    "de": "Übergangsstepper",
+    "it": "Passo passo di transizione"
+  },
+  "Trigger Widget Event {$tp_meld_studio_widget-event-type$}": {
+    "es": "Activar evento de widget {$tp_meld_studio_widget-event-type$}",
+    "fr": "Déclencher un événement de widget {$tp_meld_studio_widget-event-type$}",
+    "pt": "Acionar evento de widget {$tp_meld_studio_widget-event-type$}",
+    "tr": "Widget Etkinliğini Tetikle {$tp_meld_studio_widget-event-type$}",
+    "fi": "Käynnistä widget-tapahtuma {$tp_meld_studio_widget-event-type$}",
+    "nl": "Widgetgebeurtenis activeren {$tp_meld_studio_widget-event-type$}",
+    "de": "Widget-Ereignis auslösen {$tp_meld_studio_widget-event-type$}",
+    "it": "Attiva evento widget {$tp_meld_studio_widget-event-type$}"
+  },
+  "Virtual Camera": {
+    "es": "cámara virtual",
+    "fr": "Caméra virtuelle",
+    "pt": "Câmera virtual",
+    "tr": "Sanal Kamera",
+    "fi": "Virtuaalinen kamera",
+    "nl": "Virtuele camera",
+    "de": "Virtuelle Kamera",
+    "it": "Fotocamera virtuale"
+  },
+  "Volume {$tp_meld_studio_volume-direction$} for {$tp_meld_studio_volume-track-list$}": {
+    "es": "Volumen {$tp_meld_studio_volume-direction$} para {$tp_meld_studio_volume-track-list$}",
+    "fr": "Volume {$tp_meld_studio_volume-direction$} pour {$tp_meld_studio_volume-track-list$}",
+    "pt": "Volume {$tp_meld_studio_volume-direction$} para {$tp_meld_studio_volume-track-list$}",
+    "tr": "{$tp_meld_studio_volume-track-list$} için ses düzeyi {$tp_meld_studio_volume-direction$}",
+    "fi": "Volyymi {$tp_meld_studio_volume-direction$}: {$tp_meld_studio_volume-track-list$}",
+    "nl": "Volume {$tp_meld_studio_volume-direction$} voor {$tp_meld_studio_volume-track-list$}",
+    "de": "Lautstärke {$tp_meld_studio_volume-direction$} für {$tp_meld_studio_volume-track-list$}",
+    "it": "Volume {$tp_meld_studio_volume-direction$} per {$tp_meld_studio_volume-track-list$}"
+  },
+  "Widget Control": {
+    "es": "Control de widgets",
+    "fr": "Contrôle des widgets",
+    "pt": "Controle de widget",
+    "tr": "Widget Kontrolü",
+    "fi": "Widget-hallinta",
+    "nl": "Widgetcontrole",
+    "de": "Widget-Steuerung",
+    "it": "Controllo dei widget"
+  },
+  "and Layer {$tp_meld_studio_effect-layer-list$}": {
+    "es": "y Capa {$tp_meld_studio_effect-layer-list$}",
+    "fr": "et Calque {$tp_meld_studio_effect-layer-list$}",
+    "pt": "e Camada {$tp_meld_studio_effect-layer-list$}",
+    "tr": "ve Katman {$tp_meld_studio_effect-layer-list$}",
+    "fi": "ja kerros {$tp_meld_studio_effect-layer-list$}",
+    "nl": "en Laag {$tp_meld_studio_effect-layer-list$}",
+    "de": "und Ebene {$tp_meld_studio_effect-layer-list$}",
+    "it": "e Livello {$tp_meld_studio_effect-layer-list$}"
+  },
+  "and Layer {$tp_meld_studio_layerprop-layer-list$}": {
+    "es": "y Capa {$tp_meld_studio_layerprop-layer-list$}",
+    "fr": "et Calque {$tp_meld_studio_layerprop-layer-list$}",
+    "pt": "e Camada {$tp_meld_studio_layerprop-layer-list$}",
+    "tr": "ve Katman {$tp_meld_studio_layerprop-layer-list$}",
+    "fi": "ja kerros {$tp_meld_studio_layerprop-layer-list$}",
+    "nl": "en Laag {$tp_meld_studio_layerprop-layer-list$}",
+    "de": "und Ebene {$tp_meld_studio_layerprop-layer-list$}",
+    "it": "e Livello {$tp_meld_studio_layerprop-layer-list$}"
+  },
+  "and Layer {$tp_meld_studio_media-layer-list$}": {
+    "es": "y Capa {$tp_meld_studio_media-layer-list$}",
+    "fr": "et Calque {$tp_meld_studio_media-layer-list$}",
+    "pt": "e Camada {$tp_meld_studio_media-layer-list$}",
+    "tr": "ve Katman {$tp_meld_studio_media-layer-list$}",
+    "fi": "ja kerros {$tp_meld_studio_media-layer-list$}",
+    "nl": "en Laag {$tp_meld_studio_media-layer-list$}",
+    "de": "und Ebene {$tp_meld_studio_media-layer-list$}",
+    "it": "e Livello {$tp_meld_studio_media-layer-list$}"
+  },
+  "by {$tp_meld_studio_volume-step-size$}": {
+    "es": "por {$tp_meld_studio_volume-step-size$}",
+    "fr": "par {$tp_meld_studio_volume-step-size$}",
+    "pt": "por {$tp_meld_studio_volume-step-size$}",
+    "tr": "tarafından {$tp_meld_studio_volume-step-size$}",
+    "fi": "tekijä: {$tp_meld_studio_volume-step-size$}",
+    "nl": "door {$tp_meld_studio_volume-step-size$}",
+    "de": "von {$tp_meld_studio_volume-step-size$}",
+    "it": "di {$tp_meld_studio_volume-step-size$}"
+  },
+  "then {$tp_meld_studio_effect-action$} the effect {$tp_meld_studio_effect-list$}": {
+    "es": "entonces {$tp_meld_studio_effect-action$} el efecto {$tp_meld_studio_effect-list$}",
+    "fr": "puis {$tp_meld_studio_effect-action$} l'effet {$tp_meld_studio_effect-list$}",
+    "pt": "então {$tp_meld_studio_effect-action$} o efeito {$tp_meld_studio_effect-list$}",
+    "tr": "sonra {$tp_meld_studio_effect-action$} efekt {$tp_meld_studio_effect-list$}",
+    "fi": "sitten {$tp_meld_studio_effect-action$} vaikutus {$tp_meld_studio_effect-list$}",
+    "nl": "dan {$tp_meld_studio_effect-action$} het effect {$tp_meld_studio_effect-list$}",
+    "de": "dann {$tp_meld_studio_effect-action$} der Effekt {$tp_meld_studio_effect-list$}",
+    "it": "quindi {$tp_meld_studio_effect-action$} l'effetto {$tp_meld_studio_effect-list$}"
+  },
+  "then {$tp_meld_studio_layer-action$} the layer {$tp_meld_studio_layer-layer-list$}": {
+    "es": "luego {$tp_meld_studio_layer-action$} la capa {$tp_meld_studio_layer-layer-list$}",
+    "fr": "puis {$tp_meld_studio_layer-action$} le calque {$tp_meld_studio_layer-layer-list$}",
+    "pt": "então {$tp_meld_studio_layer-action$} a camada {$tp_meld_studio_layer-layer-list$}",
+    "tr": "sonra {$tp_meld_studio_layer-action$} katmanı {$tp_meld_studio_layer-layer-list$}",
+    "fi": "sitten {$tp_meld_studio_layer-action$} taso {$tp_meld_studio_layer-layer-list$}",
+    "nl": "dan {$tp_meld_studio_layer-action$} de laag {$tp_meld_studio_layer-layer-list$}",
+    "de": "dann {$tp_meld_studio_layer-action$} die Ebene {$tp_meld_studio_layer-layer-list$}",
+    "it": "quindi {$tp_meld_studio_layer-action$} il livello {$tp_meld_studio_layer-layer-list$}"
+  },
+  "then {$tp_meld_studio_media-action$}": {
+    "es": "entonces {$tp_meld_studio_media-action$}",
+    "fr": "puis {$tp_meld_studio_media-action$}",
+    "pt": "então {$tp_meld_studio_media-action$}",
+    "tr": "sonra {$tp_meld_studio_media-action$}",
+    "fi": "sitten {$tp_meld_studio_media-action$}",
+    "nl": "dan {$tp_meld_studio_media-action$}",
+    "de": "dann {$tp_meld_studio_media-action$}",
+    "it": "quindi {$tp_meld_studio_media-action$}"
+  },
+  "then {$tp_meld_studio_track-action$}": {
+    "es": "entonces {$tp_meld_studio_track-action$}",
+    "fr": "puis {$tp_meld_studio_track-action$}",
+    "pt": "então {$tp_meld_studio_track-action$}",
+    "tr": "sonra {$tp_meld_studio_track-action$}",
+    "fi": "sitten {$tp_meld_studio_track-action$}",
+    "nl": "dan {$tp_meld_studio_track-action$}",
+    "de": "dann {$tp_meld_studio_track-action$}",
+    "it": "quindi {$tp_meld_studio_track-action$}"
+  },
+  "to/by {$tp_meld_studio_layerprop-value$}": {
+    "es": "a/por {$tp_meld_studio_layerprop-value$}",
+    "fr": "à/par {$tp_meld_studio_layerprop-value$}",
+    "pt": "para/por {$tp_meld_studio_layerprop-value$}",
+    "tr": "alıcı/tarafından {$tp_meld_studio_layerprop-value$}",
+    "fi": "vastaanottaja/tekijä {$tp_meld_studio_layerprop-value$}",
+    "nl": "naar/door {$tp_meld_studio_layerprop-value$}",
+    "de": "bis/von {$tp_meld_studio_layerprop-value$}",
+    "it": "a/da {$tp_meld_studio_layerprop-value$}"
+  },
+  "with Amount {$tp_meld_studio_widget-amount$}": {
+    "es": "con importe {$tp_meld_studio_widget-amount$}",
+    "fr": "avec Montant {$tp_meld_studio_widget-amount$}",
+    "pt": "com valor {$tp_meld_studio_widget-amount$}",
+    "tr": "Tutarlı {$tp_meld_studio_widget-amount$}",
+    "fi": "määrällä {$tp_meld_studio_widget-amount$}",
+    "nl": "met bedrag {$tp_meld_studio_widget-amount$}",
+    "de": "mit Betrag {$tp_meld_studio_widget-amount$}",
+    "it": "con importo {$tp_meld_studio_widget-amount$}"
+  },
+  "{$tp_meld_studio_layerprop-mode$} {$tp_meld_studio_layerprop-property$}": {
+    "es": "{$tp_meld_studio_layerprop-mode$} {$tp_meld_studio_layerprop-property$}",
+    "fr": "{$tp_meld_studio_layerprop-mode$} {$tp_meld_studio_layerprop-property$}",
+    "pt": "{$tp_meld_studio_layerprop-mode$} {$tp_meld_studio_layerprop-property$}",
+    "tr": "{$tp_meld_studio_layerprop-mode$} {$tp_meld_studio_layerprop-property$}",
+    "fi": "{$tp_meld_studio_layerprop-mode$} {$tp_meld_studio_layerprop-property$}",
+    "nl": "{$tp_meld_studio_layerprop-mode$} {$tp_meld_studio_layerprop-property$}",
+    "de": "{$tp_meld_studio_layerprop-mode$} {$tp_meld_studio_layerprop-property$}",
+    "it": "{$tp_meld_studio_layerprop-mode$} {$tp_meld_studio_layerprop-property$}"
+  },
+  "{$tp_meld_studio_mute-track-action$} track {$tp_meld_studio_mute-track-list$}": {
+    "es": "{$tp_meld_studio_mute-track-action$} pista {$tp_meld_studio_mute-track-list$}",
+    "fr": "{$tp_meld_studio_mute-track-action$} piste {$tp_meld_studio_mute-track-list$}",
+    "pt": "{$tp_meld_studio_mute-track-action$} faixa {$tp_meld_studio_mute-track-list$}",
+    "tr": "{$tp_meld_studio_mute-track-action$} parça {$tp_meld_studio_mute-track-list$}",
+    "fi": "{$tp_meld_studio_mute-track-action$} kappale {$tp_meld_studio_mute-track-list$}",
+    "nl": "{$tp_meld_studio_mute-track-action$} spoor {$tp_meld_studio_mute-track-list$}",
+    "de": "{$tp_meld_studio_mute-track-action$} Titel {$tp_meld_studio_mute-track-list$}",
+    "it": "{$tp_meld_studio_mute-track-action$} traccia {$tp_meld_studio_mute-track-list$}"
+  },
+  "{$tp_meld_studio_record-action$} Recording": {
+    "es": "{$tp_meld_studio_record-action$} Grabación",
+    "fr": "{$tp_meld_studio_record-action$} Enregistrement",
+    "pt": "{$tp_meld_studio_record-action$} Gravação",
+    "tr": "{$tp_meld_studio_record-action$} Kayıt",
+    "fi": "{$tp_meld_studio_record-action$} Tallennus",
+    "nl": "{$tp_meld_studio_record-action$} Opname",
+    "de": "{$tp_meld_studio_record-action$} Aufnahme",
+    "it": "{$tp_meld_studio_record-action$} Registrazione"
+  },
+  "{$tp_meld_studio_stream-action$} Streaming": {
+    "es": "{$tp_meld_studio_stream-action$} Transmisión",
+    "fr": "{$tp_meld_studio_stream-action$} Diffusion",
+    "pt": "{$tp_meld_studio_stream-action$} Transmissão",
+    "tr": "{$tp_meld_studio_stream-action$} Akış",
+    "fi": "{$tp_meld_studio_stream-action$} Suoratoisto",
+    "nl": "{$tp_meld_studio_stream-action$} Streaming",
+    "de": "{$tp_meld_studio_stream-action$} Streaming",
+    "it": "{$tp_meld_studio_stream-action$} Trasmissione in streaming"
+  }
+}
