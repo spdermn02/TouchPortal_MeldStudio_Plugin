@@ -49,6 +49,7 @@ Meld Studio is a newer live streaming platform, so this plugin will allow "remot
 
 - [X] Effect Visible/Hidden State Values
 - [X] Layer Visible/Hidden State Values
+- [X] Layer Effectively Visible State Values (accounts for hidden groups)
 - [X] Track Cued/Un-cued State Values
 - [X] Track Un-muted/Muted State Values
 - [X] Track Volume State Values

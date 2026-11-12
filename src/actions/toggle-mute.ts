@@ -89,10 +89,10 @@ export default class ToggleMute extends TpAction {
     }
     handleAction(message: any) {
         if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-mute: Handling action", JSON.stringify(message));
-        const action = message.data[0].value;
-        const track = this.trackIdx[message.data[1].value];
-        
-        if (!this.$MS?.meld?.toggleMute) {
+        const action = message.data[0]?.value ?? 'Toggle';
+        const track = this.trackIdx[message.data[1]?.value];
+
+        if (!track || !this.$MS?.meld?.toggleMute) {
             return;
         }
 
