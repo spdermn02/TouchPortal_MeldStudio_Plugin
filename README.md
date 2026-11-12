@@ -89,13 +89,16 @@ plugin a dial's configured range, and values outside 0-100 are clamped.
 
 # Layer Properties
 
-**Set Layer Property** changes a layer's X, Y, Width, Height, Rotation, Name, Image Source or Browser URL.
-Numeric properties support Set, Increase and Decrease. Image Source accepts a plain file path or a URL. It
-needs Meld Studio WebChannel API v2 or newer; on older versions the action logs a warning and does nothing.
+**Set Layer Property** changes a layer's X, Y, Width, Height, Rotation, Name, Text, Image Source, Browser URL,
+Media Source or Background Effect. Numeric properties support Set, Increase and Decrease. Image Source and
+Media Source accept a plain file path or a URL. Background Effect (camera layers, Meld Studio 0.10.7.5+) takes
+`On`, `Off` or `Toggle`. Text (text layers) isn't in Meld's API docs but works on WebChannel API v3. It needs Meld Studio WebChannel API v2 or newer; on older versions the action logs a
+warning and does nothing.
 
 Turn on **Create Layer Property States** to get a state per layer property (grouped under
-`Meld Studio | Layer Properties`). It's off by default because it adds 5-6 states per layer: X, Y, Width,
-Height, Rotation, plus Image Source or Browser URL when the layer has one.
+`Meld Studio | Layer Properties`). It's off by default because it adds 5 or more states per layer: X, Y, Width,
+Height, Rotation, plus Text, Image Source, Browser URL, Media Source or Background Effect (`Yes`/`No`) when
+the layer has one.
 
 # Building
 

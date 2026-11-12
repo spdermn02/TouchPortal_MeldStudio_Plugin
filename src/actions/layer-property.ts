@@ -5,19 +5,25 @@ import { utils } from '../meldStudio/utils';
 import { stateManager } from '../utils/stateManager';
 import { pathToFileURL } from 'url';
 
-// Settable layer properties: display name -> session key. Meld ignores parent/type/index
-const PROPERTIES: { [name: string]: { key: string, numeric: boolean } } = {
+// Settable layer properties: display name -> session key. Meld ignores parent/type/index.
+// kind 'path' accepts plain file paths (converted to file:// URLs), 'bool' takes On/Off/Toggle
+const PROPERTIES: { [name: string]: { key: string, numeric: boolean, kind?: 'path' | 'bool' } } = {
     'X': { key: 'x', numeric: true },
     'Y': { key: 'y', numeric: true },
     'Width': { key: 'width', numeric: true },
     'Height': { key: 'height', numeric: true },
     'Rotation': { key: 'rotation', numeric: true },
     'Name': { key: 'name', numeric: false },
-    'Image Source': { key: 'source', numeric: false },
-    'Browser URL': { key: 'url', numeric: false }
+    // Text layers only - not in WebChannelAPI.md, but published in the session and settable (API v3)
+    'Text': { key: 'text', numeric: false },
+    'Image Source': { key: 'source', numeric: false, kind: 'path' },
+    'Browser URL': { key: 'url', numeric: false },
+    'Media Source': { key: 'mediaSource', numeric: false, kind: 'path' },
+    // Camera layers only, Meld Studio 0.10.7.5+ (older builds omit the key)
+    'Background Effect': { key: 'backgroundEffectEnabled', numeric: false, kind: 'bool' }
 };
 // Properties exposed as optional per-layer states (Name is already in every state description)
-const STATE_PROPERTIES = ['X', 'Y', 'Width', 'Height', 'Rotation', 'Image Source', 'Browser URL'];
+const STATE_PROPERTIES = ['X', 'Y', 'Width', 'Height', 'Rotation', 'Text', 'Image Source', 'Browser URL', 'Media Source', 'Background Effect'];
 const SET_PROPERTY_MIN_VERSION = 2;
 
 export default class LayerProperty extends TpAction {
@@ -76,7 +82,7 @@ export default class LayerProperty extends TpAction {
     tpStates: any = {
         'layerProperty': {
             id: C.Str.IdPrefix + 'layer-prop',
-            desc: 'Layer X/Y/Width/Height/Rotation/Source/URL (per layer, optional)',
+            desc: 'Layer X/Y/Width/Height/Rotation/Text/Source/URL/Media/Background Effect (per layer, optional)',
             type: 'text',
             default: '',
             parentGroup: 'Meld Studio | Layer Properties',
@@ -162,7 +168,7 @@ export default class LayerProperty extends TpAction {
             const layer = this.layerIdx[key];
             const label = `${layer.name} (${sceneNames[layer.data.parent] ?? 'No Scene'})`;
             for (const property of STATE_PROPERTIES) {
-                // Only create source/url states for layers that actually have them
+                // Only create text/source/url/media/background states for layers that actually have them
                 if (!PROPERTIES[property].numeric && layer.data[PROPERTIES[property].key] === undefined) continue;
                 const stateId = this.stateId(property, layer.value);
                 currentStateIds.add(stateId);
@@ -194,7 +200,9 @@ export default class LayerProperty extends TpAction {
                 const stateId = this.stateId(property, layer.value);
                 if (!this.createdStates.has(stateId)) continue;
                 const value = layer.data[PROPERTIES[property].key];
-                states.push({ id: stateId, value: value === undefined || value === null ? '' : String(value) });
+                let stateValue = value === undefined || value === null ? '' : String(value);
+                if (PROPERTIES[property].kind === 'bool') stateValue = value ? 'Yes' : 'No';
+                states.push({ id: stateId, value: stateValue });
             }
         }
         if (states.length > 0) {
@@ -247,15 +255,29 @@ export default class LayerProperty extends TpAction {
                 this.tp.logIt("WARN", `Set Layer Property: ${message.data[3].value} only supports Set`);
                 return;
             }
-            value = property.key === 'source' ? this.toSourceUrl(rawValue) : rawValue;
-            if (value === null) return;
+            if (property.kind === 'bool') {
+                value = this.toBoolean(rawValue, !!layer.data[property.key]);
+                if (value === null) {
+                    this.tp.logIt("WARN", `Set Layer Property: "${rawValue}" should be On, Off or Toggle for ${message.data[3].value}`);
+                    return;
+                }
+            } else {
+                value = property.kind === 'path' ? this.toSourceUrl(rawValue) : rawValue;
+                if (value === null) return;
+            }
         }
 
         if (DEBUG_MODE) this.tp.logIt("DEBUG", `layer-property: ${layer.value}.${property.key} = ${value}`);
         this.$MS.meld.setProperty(layer.value, property.key, value);
     }
+    toBoolean(rawValue: string, current: boolean): boolean | null {
+        if (/^toggle$/i.test(rawValue)) return !current;
+        if (/^(on|true|1|yes)$/i.test(rawValue)) return true;
+        if (/^(off|false|0|no)$/i.test(rawValue)) return false;
+        return null;
+    }
     toSourceUrl(rawValue: string): string | null {
-        // Meld stores image sources as file:// URLs - accept plain paths too (e.g. C:\images\frame.png)
+        // Meld stores image/media sources as file:// URLs - accept plain paths too (e.g. C:\images\frame.png)
         if (/^[a-z][a-z0-9+.-]*:\/\//i.test(rawValue)) return rawValue;
         try {
             return pathToFileURL(rawValue).href;
