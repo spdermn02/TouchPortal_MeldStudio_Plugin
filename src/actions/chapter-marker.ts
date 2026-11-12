@@ -3,10 +3,12 @@ import { DEBUG_MODE } from '../consts';
 import TpAction from '../touchPortal/tpAction';
 
 // Meld only honours these while recording and ignores them otherwise, so presses are always sent
-// rather than second-guessed from a possibly stale isRecording flag
+// rather than second-guessed from a possibly stale isRecording flag. Neither accepts a name: Meld
+// drops a sendCommandWithArgs name argument (tested live), so Quick gets "Chapter N" and Named opens
+// Meld's naming prompt on the Meld PC
 const CHAPTER_COMMANDS: { [choice: string]: string } = {
     'Quick': 'meld.insertRecordingChapterMarker',
-    'Named': 'meld.insertNamedRecordingChapterMarker'
+    'Named (prompt in Meld)': 'meld.insertNamedRecordingChapterMarker'
 };
 
 export default class ChapterMarker extends TpAction {

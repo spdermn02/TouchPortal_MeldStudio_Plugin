@@ -5,7 +5,8 @@
 ### New Features
 
 - Actions
-  - Chapter Marker - add a quick or named chapter marker to the current recording
+  - Chapter Marker - add a chapter marker to the current recording: Quick (numbered "Chapter N") or
+    Named (opens Meld's naming prompt on the Meld PC)
   - Camera Background - toggle/enable/disable a camera layer's background blur/removal effect
     (Meld Studio 0.10.7.5+). Only camera layers that support it are listed
 - States
