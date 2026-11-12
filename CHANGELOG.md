@@ -11,7 +11,8 @@
     (Meld Studio 0.10.7.5+). Only camera layers that support it are listed
 - States
   - Per-camera-layer Camera Background (Yes/No)
-- Record Clip - maximum duration raised from 90 to 120 seconds, matching Meld Studio
+- Record Clip - maximum duration raised from 90 to 120 seconds, matching Meld Studio. Clips can't be
+  longer than Meld's **Clipping Output → Clip Length** setting (90s by default)
 
 ### Fixes
 
