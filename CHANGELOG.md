@@ -1,5 +1,19 @@
 # Touch Portal Meld Studio Plugin - Change Log
 
+## Unreleased
+
+### New Features
+
+- States
+  - Per-layer Effectively Visible - `No` when the layer or any group it's in is hidden (Layer
+    Visible only reflects the layer's own eye toggle)
+
+### Fixes
+
+- Layer Visibility, Effect Visibility, Track Monitor and Track Mute no longer crash when a dropdown
+  is left on `[No Selection]` or the item was deleted in Meld Studio. Layer/Effect Visibility fall back
+  to the item's own scene/layer if those dropdowns aren't set
+
 ## v0.0.1-alpha-9
 
 ### New Features
