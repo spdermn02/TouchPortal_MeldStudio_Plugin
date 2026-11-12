@@ -158,9 +158,15 @@ export default class ToggleLayer extends TpAction {
     }
     handleAction(message: any) {
         if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-layer: Handling action", JSON.stringify(message));
-        const sceneId = this.sceneIdx[message.data[0].value].value;
-        const action = message.data[1].value;
-        const layer = this.layerIdx[message.data[2].value];
+        const action = message.data[1]?.value ?? 'Toggle';
+        const layer = this.layerIdx[message.data[2]?.value];
+        if (!layer) {
+            // [No Selection], or the layer was deleted in Meld since the button was set up
+            if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-layer: No valid layer selected");
+            return;
+        }
+        // Fall back to the layer's own scene if the scene dropdown wasn't set or no longer exists
+        const sceneId = this.sceneIdx[message.data[0]?.value]?.value ?? layer.data.parent;
 
         if (!this.$MS?.meld?.toggleLayer) {
             return;

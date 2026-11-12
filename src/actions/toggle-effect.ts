@@ -98,10 +98,18 @@ export default class ToggleEffect extends TpAction {
     }
     handleAction(message: any) {
         if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-effect: Handling action", JSON.stringify(message));
-        const sceneId = this.sceneIdx[message.data[0].value].value;
-        const layerId = this.layerIdx[message.data[1].value].value;
-        const action = message.data[2].value;
-        const effect = this.effectIdx[message.data[3].value];
+        const action = message.data[2]?.value ?? 'Toggle';
+        const effect = this.effectIdx[message.data[3]?.value];
+        if (!effect) {
+            // [No Selection], or the effect was deleted in Meld since the button was set up
+            if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-effect: No valid effect selected");
+            return;
+        }
+        // Fall back to the effect's own layer/scene if those dropdowns weren't set or no longer exist
+        const layer = this.layerIdx[message.data[1]?.value];
+        const layerId = layer?.value ?? effect.data.parent;
+        const sceneId = this.sceneIdx[message.data[0]?.value]?.value ?? (layer?.data ?? this.$MS?.meld?.session?.items?.[layerId])?.parent;
+        if (!layerId || !sceneId) return;
 
         if (!this.$MS?.meld?.toggleEffect) {
             return;

@@ -85,10 +85,10 @@ export default class ToggleMonitor extends TpAction {
     }
     handleAction(message: any) {
         if (DEBUG_MODE) this.tp.logIt("DEBUG", "toggle-monitor: Handling action", JSON.stringify(message));
-        const track = this.trackIdx[message.data[0].value];
-        const action = message.data[1].value;
+        const track = this.trackIdx[message.data[0]?.value];
+        const action = message.data[1]?.value ?? 'Toggle';
 
-        if (!this.$MS?.meld?.toggleMonitor) {
+        if (!track || !this.$MS?.meld?.toggleMonitor) {
             return;
         }
 
