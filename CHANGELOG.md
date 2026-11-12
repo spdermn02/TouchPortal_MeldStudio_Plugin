@@ -1,6 +1,6 @@
 # Touch Portal Meld Studio Plugin - Change Log
 
-## Unreleased
+## v0.0.1-alpha-9
 
 ### New Features
 
@@ -8,6 +8,11 @@
   background blur/removal On/Off/Toggle, Meld Studio 0.10.7.5+)
 - Set Layer Property - Text (change a text layer's text; undocumented by Meld, works on API v3)
 - Layer property states for Text, Media Source and Background Effect
+
+### Fixes
+
+- macOS Intel (x64) release builds run again - the retired macos-13 runner was replaced with
+  macos-15-intel (alpha-8 shipped without a macOS Intel package)
 
 ## v0.0.1-alpha-8
 
