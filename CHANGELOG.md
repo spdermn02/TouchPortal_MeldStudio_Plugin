@@ -6,7 +6,8 @@
 
 - Set Layer Property - Media Source (swap a media layer's file) and Background Effect (camera layer
   background blur/removal On/Off/Toggle, Meld Studio 0.10.7.5+)
-- Layer property states for Media Source and Background Effect
+- Set Layer Property - Text (change a text layer's text; undocumented by Meld, works on API v3)
+- Layer property states for Text, Media Source and Background Effect
 
 ## v0.0.1-alpha-8
 

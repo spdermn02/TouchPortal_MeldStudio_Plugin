@@ -14,6 +14,8 @@ const PROPERTIES: { [name: string]: { key: string, numeric: boolean, kind?: 'pat
     'Height': { key: 'height', numeric: true },
     'Rotation': { key: 'rotation', numeric: true },
     'Name': { key: 'name', numeric: false },
+    // Text layers only - not in WebChannelAPI.md, but published in the session and settable (API v3)
+    'Text': { key: 'text', numeric: false },
     'Image Source': { key: 'source', numeric: false, kind: 'path' },
     'Browser URL': { key: 'url', numeric: false },
     'Media Source': { key: 'mediaSource', numeric: false, kind: 'path' },
@@ -21,7 +23,7 @@ const PROPERTIES: { [name: string]: { key: string, numeric: boolean, kind?: 'pat
     'Background Effect': { key: 'backgroundEffectEnabled', numeric: false, kind: 'bool' }
 };
 // Properties exposed as optional per-layer states (Name is already in every state description)
-const STATE_PROPERTIES = ['X', 'Y', 'Width', 'Height', 'Rotation', 'Image Source', 'Browser URL', 'Media Source', 'Background Effect'];
+const STATE_PROPERTIES = ['X', 'Y', 'Width', 'Height', 'Rotation', 'Text', 'Image Source', 'Browser URL', 'Media Source', 'Background Effect'];
 const SET_PROPERTY_MIN_VERSION = 2;
 
 export default class LayerProperty extends TpAction {
@@ -80,7 +82,7 @@ export default class LayerProperty extends TpAction {
     tpStates: any = {
         'layerProperty': {
             id: C.Str.IdPrefix + 'layer-prop',
-            desc: 'Layer X/Y/Width/Height/Rotation/Source/URL/Media/Background Effect (per layer, optional)',
+            desc: 'Layer X/Y/Width/Height/Rotation/Text/Source/URL/Media/Background Effect (per layer, optional)',
             type: 'text',
             default: '',
             parentGroup: 'Meld Studio | Layer Properties',
@@ -166,7 +168,7 @@ export default class LayerProperty extends TpAction {
             const layer = this.layerIdx[key];
             const label = `${layer.name} (${sceneNames[layer.data.parent] ?? 'No Scene'})`;
             for (const property of STATE_PROPERTIES) {
-                // Only create source/url/media/background states for layers that actually have them
+                // Only create text/source/url/media/background states for layers that actually have them
                 if (!PROPERTIES[property].numeric && layer.data[PROPERTIES[property].key] === undefined) continue;
                 const stateId = this.stateId(property, layer.value);
                 currentStateIds.add(stateId);
