@@ -1,5 +1,13 @@
 # Touch Portal Meld Studio Plugin - Change Log
 
+## Unreleased
+
+### New Features
+
+- Set Layer Property - Media Source (swap a media layer's file) and Background Effect (camera layer
+  background blur/removal On/Off/Toggle, Meld Studio 0.10.7.5+)
+- Layer property states for Media Source and Background Effect
+
 ## v0.0.1-alpha-8
 
 ### New Features
