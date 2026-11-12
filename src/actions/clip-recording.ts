@@ -2,7 +2,8 @@ import * as C from '../consts';
 import { DEBUG_MODE } from '../consts';
 import TpAction from '../touchPortal/tpAction';
 
-const MAX_CLIP_SECONDS = 90;
+// Meld Studio supports clips up to 120s (raised from 90 in the Meld Stream Deck plugin 0.6.4.2)
+const MAX_CLIP_SECONDS = 120;
 
 export default class ClipRecording extends TpAction {
     tpAction: any = {
