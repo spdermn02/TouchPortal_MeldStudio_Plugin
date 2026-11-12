@@ -53,6 +53,16 @@ export default class ToggleLayer extends TpAction {
             valueChoices: ['No', 'Yes'],
             parentGroup: 'Meld Studio | Layers',
             dynamic: true
+        },
+        // isEffectivelyVisible: visible AND every parent group visible (undocumented, Meld API v3)
+        'layerEffectivelyVisible': {
+            id: C.Str.IdPrefix + 'layer-effectively-visible',
+            desc: 'Layer Effectively Visible State (per layer, accounts for hidden groups)',
+            type: 'choice',
+            default: 'No',
+            valueChoices: ['No', 'Yes'],
+            parentGroup: 'Meld Studio | Layers',
+            dynamic: true
         }
     }
     $MS: any = null;
@@ -117,7 +127,10 @@ export default class ToggleLayer extends TpAction {
         }, STATE_INIT_DELAY_MS + 100);
     }
     createLayerState(layerId: string, layerName: string) {
-        const stateId = C.Str.IdPrefix + 'layer-visible-' + layerId;
+        this.createDynamicState(C.Str.IdPrefix + 'layer-visible-' + layerId, `Layer Visible: ${layerName}`);
+        this.createDynamicState(C.Str.IdPrefix + 'layer-effectively-visible-' + layerId, `Layer Effectively Visible: ${layerName}`);
+    }
+    createDynamicState(stateId: string, description: string) {
         if (!this.createdStates.has(stateId)) {
             try {
                 // Remove state first to ensure clean creation
@@ -128,7 +141,7 @@ export default class ToggleLayer extends TpAction {
             try {
                 this.tp.createState(
                     stateId,
-                    `Layer Visible: ${layerName}`,
+                    description,
                     'No',
                     'Meld Studio | Layers'
                 );
@@ -148,9 +161,10 @@ export default class ToggleLayer extends TpAction {
         const states: Array<{ id: string, value: string }> = [];
         for (const key in this.layerIdx) {
             const layer = this.layerIdx[key];
-            const stateId = C.Str.IdPrefix + 'layer-visible-' + layer.value;
-            const value = layer.data.visible ? 'Yes' : 'No';
-            states.push({ id: stateId, value });
+            states.push({ id: C.Str.IdPrefix + 'layer-visible-' + layer.value, value: layer.data.visible ? 'Yes' : 'No' });
+            // Older Meld builds don't publish isEffectivelyVisible - fall back to visible
+            const effective = layer.data.isEffectivelyVisible ?? layer.data.visible;
+            states.push({ id: C.Str.IdPrefix + 'layer-effectively-visible-' + layer.value, value: effective ? 'Yes' : 'No' });
         }
         if (states.length > 0) {
             stateManager.updateStateMany(states);
