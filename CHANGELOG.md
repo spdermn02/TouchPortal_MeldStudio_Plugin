@@ -1,5 +1,24 @@
 # Touch Portal Meld Studio Plugin - Change Log
 
+## Unreleased
+
+### New Features
+
+- Actions
+  - Chapter Marker - add a chapter marker to the current recording: Quick (numbered "Chapter N") or
+    Named (opens Meld's naming prompt on the Meld PC)
+  - Camera Background - toggle/enable/disable a camera layer's background blur/removal effect
+    (Meld Studio 0.10.7.5+). Only camera layers that support it are listed
+- States
+  - Per-camera-layer Camera Background (Yes/No)
+- Record Clip - maximum duration raised from 90 to 120 seconds, matching Meld Studio. Clips can't be
+  longer than Meld's **Clipping Output → Clip Length** setting (90s by default)
+
+### Fixes
+
+- Quick repeated Background Effect toggles now alternate instead of repeating the first change (Meld's
+  session updates lag behind writes, so a second press re-read the old value)
+
 ## v0.0.1-alpha-10
 
 ### New Features

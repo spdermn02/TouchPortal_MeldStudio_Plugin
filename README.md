@@ -43,6 +43,8 @@ Meld Studio is a newer live streaming platform, so this plugin will allow "remot
 - [X] Widget Control Action
 - [X] Set Layer Property Action
 - [X] Toggle Virtual Camera Action
+- [X] Chapter Marker Action
+- [X] Camera Background Action
 - [X] Start/Stop Stream & Record
 - [X] Media Seek
 - [X] Vertical Screenshot
@@ -50,6 +52,7 @@ Meld Studio is a newer live streaming platform, so this plugin will allow "remot
 - [X] Effect Visible/Hidden State Values
 - [X] Layer Visible/Hidden State Values
 - [X] Layer Effectively Visible State Values (accounts for hidden groups)
+- [X] Camera Background State Values
 - [X] Track Cued/Un-cued State Values
 - [X] Track Un-muted/Muted State Values
 - [X] Track Volume State Values

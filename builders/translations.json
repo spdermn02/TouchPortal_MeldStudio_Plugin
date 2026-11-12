@@ -1,4 +1,34 @@
 {
+  "Add {$tp_meld_studio_chapter-marker-type$} Chapter Marker to the recording": {
+    "es": "Agregue {$tp_meld_studio_chapter-marker-type$} marcador de capítulo a la grabación",
+    "fr": "Ajouter {$tp_meld_studio_chapter-marker-type$} marqueur de chapitre à l'enregistrement",
+    "pt": "Adicione {$tp_meld_studio_chapter-marker-type$} marcador de capítulo à gravação",
+    "tr": "Kayda {$tp_meld_studio_chapter-marker-type$} Bölüm İşaretçisi ekle",
+    "fi": "Lisää {$tp_meld_studio_chapter-marker-type$} lukumerkki tallenteeseen",
+    "nl": "Voeg {$tp_meld_studio_chapter-marker-type$} Hoofdstukmarkering toe aan de opname",
+    "de": "Fügen Sie der Aufnahme {$tp_meld_studio_chapter-marker-type$} Kapitelmarkierung hinzu",
+    "it": "Aggiungi {$tp_meld_studio_chapter-marker-type$} Contrassegna capitolo alla registrazione"
+  },
+  "Camera Background": {
+    "es": "Fondo de la cámara",
+    "fr": "Fond de caméra",
+    "pt": "Fundo da câmera",
+    "tr": "Kamera Arka Planı",
+    "fi": "Kameran tausta",
+    "nl": "Camera-achtergrond",
+    "de": "Kamerahintergrund",
+    "it": "Sfondo della fotocamera"
+  },
+  "Chapter Marker": {
+    "es": "Marcador de capítulo",
+    "fr": "Marqueur de chapitre",
+    "pt": "Marcador de capítulo",
+    "tr": "Bölüm İşaretçisi",
+    "fi": "Lukumerkki",
+    "nl": "Hoofdstukmarkering",
+    "de": "Kapitelmarkierung",
+    "it": "Indicatore di capitolo"
+  },
   "Effect Visibility": {
     "es": "Visibilidad del efecto",
     "fr": "Visibilité des effets",
@@ -8,6 +38,16 @@
     "nl": "Effectzichtbaarheid",
     "de": "Effektsichtbarkeit",
     "it": "Visibilità degli effetti"
+  },
+  "For Scene {$tp_meld_studio_camerabg-scene-list$}": {
+    "es": "Para escena {$tp_meld_studio_camerabg-scene-list$}",
+    "fr": "Pour la scène {$tp_meld_studio_camerabg-scene-list$}",
+    "pt": "Para cena {$tp_meld_studio_camerabg-scene-list$}",
+    "tr": "Sahne için {$tp_meld_studio_camerabg-scene-list$}",
+    "fi": "Kohtaukselle {$tp_meld_studio_camerabg-scene-list$}",
+    "nl": "Voor scène {$tp_meld_studio_camerabg-scene-list$}",
+    "de": "Für Szene {$tp_meld_studio_camerabg-scene-list$}",
+    "it": "Per la scena {$tp_meld_studio_camerabg-scene-list$}"
   },
   "For Scene {$tp_meld_studio_effect-scene-list$}": {
     "es": "Para escena {$tp_meld_studio_effect-scene-list$}",
@@ -368,6 +408,16 @@
     "nl": "door {$tp_meld_studio_volume-step-size$}",
     "de": "von {$tp_meld_studio_volume-step-size$}",
     "it": "di {$tp_meld_studio_volume-step-size$}"
+  },
+  "then {$tp_meld_studio_camerabg-action$} the background effect on {$tp_meld_studio_camerabg-layer-list$}": {
+    "es": "luego {$tp_meld_studio_camerabg-action$} el efecto de fondo en {$tp_meld_studio_camerabg-layer-list$}",
+    "fr": "puis {$tp_meld_studio_camerabg-action$} l'effet de fond sur {$tp_meld_studio_camerabg-layer-list$}",
+    "pt": "então {$tp_meld_studio_camerabg-action$} o efeito de fundo em {$tp_meld_studio_camerabg-layer-list$}",
+    "tr": "ardından {$tp_meld_studio_camerabg-action$} {$tp_meld_studio_camerabg-layer-list$} üzerindeki arka plan efekti",
+    "fi": "sitten {$tp_meld_studio_camerabg-action$} taustatehoste {$tp_meld_studio_camerabg-layer-list$}",
+    "nl": "dan {$tp_meld_studio_camerabg-action$} het achtergrondeffect op {$tp_meld_studio_camerabg-layer-list$}",
+    "de": "dann {$tp_meld_studio_camerabg-action$} der Hintergrundeffekt auf {$tp_meld_studio_camerabg-layer-list$}",
+    "it": "quindi {$tp_meld_studio_camerabg-action$} l'effetto di sfondo su {$tp_meld_studio_camerabg-layer-list$}"
   },
   "then {$tp_meld_studio_effect-action$} the effect {$tp_meld_studio_effect-list$}": {
     "es": "entonces {$tp_meld_studio_effect-action$} el efecto {$tp_meld_studio_effect-list$}",
