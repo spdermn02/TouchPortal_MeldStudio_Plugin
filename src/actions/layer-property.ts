@@ -3,6 +3,7 @@ import { DEBUG_MODE, STATE_INIT_DELAY_MS, LAYER_PROPERTY_STATES } from '../const
 import TpAction from '../touchPortal/tpAction';
 import { utils } from '../meldStudio/utils';
 import { stateManager } from '../utils/stateManager';
+import { pendingValues } from '../utils/pendingValues';
 import { pathToFileURL } from 'url';
 
 // Settable layer properties: display name -> session key. Meld ignores parent/type/index.
@@ -256,7 +257,7 @@ export default class LayerProperty extends TpAction {
                 return;
             }
             if (property.kind === 'bool') {
-                value = this.toBoolean(rawValue, !!layer.data[property.key]);
+                value = this.toBoolean(rawValue, !!pendingValues.get(layer.value, property.key, !!layer.data[property.key]));
                 if (value === null) {
                     this.tp.logIt("WARN", `Set Layer Property: "${rawValue}" should be On, Off or Toggle for ${message.data[3].value}`);
                     return;
@@ -268,6 +269,7 @@ export default class LayerProperty extends TpAction {
         }
 
         if (DEBUG_MODE) this.tp.logIt("DEBUG", `layer-property: ${layer.value}.${property.key} = ${value}`);
+        if (property.kind === 'bool') pendingValues.set(layer.value, property.key, value);
         this.$MS.meld.setProperty(layer.value, property.key, value);
     }
     toBoolean(rawValue: string, current: boolean): boolean | null {
