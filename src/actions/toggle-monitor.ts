@@ -3,6 +3,7 @@ import { DEBUG_MODE, STATE_INIT_DELAY_MS } from '../consts';
 import TpAction from '../touchPortal/tpAction';
 import { utils } from '../meldStudio/utils';
 import { stateManager } from '../utils/stateManager';
+import { pendingValues } from '../utils/pendingValues';
 
 export default class ToggleMonitor extends TpAction {
     tpAction: any = {
@@ -76,7 +77,7 @@ export default class ToggleMonitor extends TpAction {
         for (const key in this.trackIdx) {
             const track = this.trackIdx[key];
             const stateId = C.Str.IdPrefix + 'track-cued-' + track.value;
-            const value = track.data.monitoring ? 'Yes' : 'No';
+            const value = pendingValues.get(track.value, 'monitoring', !!track.data.monitoring) ? 'Yes' : 'No';
             states.push({ id: stateId, value });
         }
         if (states.length > 0) {
@@ -88,24 +89,27 @@ export default class ToggleMonitor extends TpAction {
         const track = this.trackIdx[message.data[0]?.value];
         const action = message.data[1]?.value ?? 'Toggle';
 
-        if (!track || !this.$MS?.meld?.toggleMonitor) {
+        const meld = this.$MS?.meld;
+        if (!track || !meld?.toggleMonitor) {
             return;
         }
 
-        // Logic here pulled from the MeldStudio StreamDeck plugin code
-        // available here;  https://github.com/MeldStudio/streamdeck/blob/9e8613c9f68244f4d9304aef9f8547a79da02d80/co.meldstudio.streamdeck.sdPlugin/actions/toggle-monitor/plugin.js#L21
-        if (action.toLowerCase() == 'toggle') {
-            this.$MS.meld.toggleMonitor(track.value);
+        // Base force modes on our last press, not the lagging session snapshot
+        const current = !!pendingValues.get(track.value, 'monitoring', !!track.data.monitoring);
+        const toggle = action.toLowerCase() == 'toggle';
+        const desired = toggle ? !current : action.toLowerCase() === 'cue';
+        if (toggle) {
+            meld.toggleMonitor(track.value);
         }
-        else {
-            const action_monitor = action.toLowerCase() === 'cue' ? 1 : 0;
-            const state_monitor = track.data.monitoring ? 1 : 0;
-
-            const monitor = action_monitor ^ state_monitor;
-            if (monitor) {
-                this.$MS.meld.toggleMonitor(track.value);
-            }
+        else if (meld.setProperty) {
+            // Idempotent setter - a repeated press can never flip the track
+            meld.setProperty(track.value, 'monitoring', desired);
         }
+        else if (desired !== current) {
+            meld.toggleMonitor(track.value);
+        }
+        pendingValues.set(track.value, 'monitoring', desired);
+        this.updateCuedState(track.value, desired);
     }
     buildTrackIdx() {
         this.trackIdx = {};

@@ -1,5 +1,14 @@
 # Touch Portal Meld Studio Plugin - Change Log
 
+## Unreleased
+
+### Fixes
+
+- Track Mute, Track Monitor, Layer Visibility and Effect Visibility: quick repeated presses no longer
+  misfire. Pressing Mute (or Cue) twice in a row used to flip the track back, and Show right after Hide
+  did nothing, because Meld's session updates lag behind writes. Mute/Unmute and Cue/Uncue now set the
+  value directly, and the Yes/No states follow presses immediately
+
 ## v1.0.0
 
 First stable release. No functional changes since v0.0.1-alpha-11 - this marks the alpha series

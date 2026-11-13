@@ -3,6 +3,7 @@ import { DEBUG_MODE, STATE_INIT_DELAY_MS } from '../consts';
 import TpAction from '../touchPortal/tpAction';
 import { utils } from '../meldStudio/utils';
 import { stateManager } from '../utils/stateManager';
+import { pendingValues } from '../utils/pendingValues';
 
 export default class ToggleEffect extends TpAction {
     tpAction: any = {
@@ -117,18 +118,14 @@ export default class ToggleEffect extends TpAction {
 
         // Logic here pulled from the MeldStudio StreamDeck plugin code
         // available here;  https://github.com/MeldStudio/streamdeck/blob/9e8613c9f68244f4d9304aef9f8547a79da02d80/co.meldstudio.streamdeck.sdPlugin/actions/toggle-effect/plugin.js#L21
-        if (action.toLowerCase() == 'toggle') {
+        // Show/Hide only toggle when needed - base that on our last press, not the lagging snapshot
+        const current = !!pendingValues.get(effect.value, 'enabled', !!effect.data.enabled);
+        const desired = action.toLowerCase() == 'toggle' ? !current : action.toLowerCase() === 'show';
+        if (desired !== current || action.toLowerCase() == 'toggle') {
             this.$MS.meld.toggleEffect(sceneId, layerId, effect.value);
         }
-        else {
-            const action_show = action.toLowerCase() === 'show' ? 1 : 0;
-            const state_show = effect.data.enabled ? 1 : 0;
-
-            const show = action_show ^ state_show;
-            if (show) {
-                this.$MS.meld.toggleEffect(sceneId, layerId, effect.value);
-            }
-        }
+        pendingValues.set(effect.value, 'enabled', desired);
+        this.updateEnabledState(effect.value, desired);
 
     }
     buildSceneIdx(instanceId: string | null = null) {
@@ -209,7 +206,7 @@ export default class ToggleEffect extends TpAction {
         for (const key in this.effectIdx) {
             const effect = this.effectIdx[key];
             const stateId = C.Str.IdPrefix + 'effect-enabled-' + effect.value;
-            const value = effect.data.enabled ? 'Yes' : 'No';
+            const value = pendingValues.get(effect.value, 'enabled', !!effect.data.enabled) ? 'Yes' : 'No';
             states.push({ id: stateId, value });
         }
         if (states.length > 0) {
