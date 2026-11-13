@@ -3,6 +3,7 @@ import { DEBUG_MODE, STATE_INIT_DELAY_MS } from '../consts';
 import TpAction from '../touchPortal/tpAction';
 import { utils } from '../meldStudio/utils';
 import { stateManager } from '../utils/stateManager';
+import { pendingValues } from '../utils/pendingValues';
 
 export default class ToggleLayer extends TpAction {
     tpAction: any = {
@@ -161,7 +162,8 @@ export default class ToggleLayer extends TpAction {
         const states: Array<{ id: string, value: string }> = [];
         for (const key in this.layerIdx) {
             const layer = this.layerIdx[key];
-            states.push({ id: C.Str.IdPrefix + 'layer-visible-' + layer.value, value: layer.data.visible ? 'Yes' : 'No' });
+            const visible = pendingValues.get(layer.value, 'visible', !!layer.data.visible);
+            states.push({ id: C.Str.IdPrefix + 'layer-visible-' + layer.value, value: visible ? 'Yes' : 'No' });
             // Older Meld builds don't publish isEffectivelyVisible - fall back to visible
             const effective = layer.data.isEffectivelyVisible ?? layer.data.visible;
             states.push({ id: C.Str.IdPrefix + 'layer-effectively-visible-' + layer.value, value: effective ? 'Yes' : 'No' });
@@ -188,18 +190,14 @@ export default class ToggleLayer extends TpAction {
 
         // Logic here pulled from the MeldStudio StreamDeck plugin code
         // available here;  https://github.com/MeldStudio/streamdeck/blob/9e8613c9f68244f4d9304aef9f8547a79da02d80/co.meldstudio.streamdeck.sdPlugin/actions/toggle-layer/plugin.js#L21
-        if (action.toLowerCase() == 'toggle') {
+        // Show/Hide only toggle when needed - base that on our last press, not the lagging snapshot
+        const current = !!pendingValues.get(layer.value, 'visible', !!layer.data.visible);
+        const desired = action.toLowerCase() == 'toggle' ? !current : action.toLowerCase() === 'show';
+        if (desired !== current || action.toLowerCase() == 'toggle') {
             this.$MS.meld.toggleLayer(sceneId, layer.value);
         }
-        else {
-            const action_show = action.toLowerCase() === 'show' ? 1 : 0;
-            const state_show = layer.data.visible ? 1 : 0;
-
-            const show = action_show ^ state_show;
-            if (show) {
-                this.$MS.meld.toggleLayer(sceneId, layer.value);
-            }
-        }
+        pendingValues.set(layer.value, 'visible', desired);
+        this.updateVisibilityState(layer.value, desired);
     }
     handleListChange(message: any) {
         this.instances[message.instanceId] = message.values;
