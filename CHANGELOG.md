@@ -1,5 +1,15 @@
 # Touch Portal Meld Studio Plugin - Change Log
 
+## v1.0.0
+
+First stable release. No functional changes since v0.0.1-alpha-11 - this marks the alpha series
+feature-complete and stable.
+
+### Notes
+
+- Camera Background / Background Effect needs an NVIDIA RTX (2000 series or newer) GPU on Windows.
+  On other GPUs the setting still toggles in Meld but has no visible effect
+
 ## v0.0.1-alpha-11
 
 ### New Features

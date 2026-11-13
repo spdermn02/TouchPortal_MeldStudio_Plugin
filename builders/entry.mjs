@@ -332,13 +332,19 @@ const loadTPSettings = () => {
 
 }
 
+// Touch Portal wants an integer plugin version: 1.2.3 -> 10203
+const tpVersion = (version) => {
+  const [major, minor, patch] = version.split(/[.-]/).map(Number);
+  return major * 10000 + minor * 100 + patch;
+};
+
 const buildEntry = async () => {
   // remove ../base/entry.tp first
   fs.rmSync(path.join(__dirname, "../base/entry.tp"), { force: true });
 
   const entry = {
     "api": 12,
-    "version": 1,
+    "version": tpVersion(packageJson.version),
     "name": C.Str.PluginName,
     "id": C.Str.PluginId,
     "configuration": {
